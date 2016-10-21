@@ -1,0 +1,32 @@
+{
+  "name": "universal-hot-reload",
+  "version": "0.1.0",
+  "description": "Hot reload client and server webpack bundles for the ultimate development experience",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusinto/universal-hot-reload.git"
+  },
+  "keywords": [
+    "universal",
+    "hot",
+    "reload",
+    "client",
+    "server",
+    "webpack",
+    "bundle"
+  ],
+  "author": "Yusinto Ngadiman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yusinto/universal-hot-reload/issues"
+  },
+  "homepage": "https://github.com/yusinto/universal-hot-reload#readme",
+  "dependencies": {
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
