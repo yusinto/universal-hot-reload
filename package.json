@@ -1,6 +1,6 @@
 {
   "name": "universal-hot-reload",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hot reload client and server webpack bundles for the ultimate development experience",
   "main": "index.js",
   "scripts": {
