@@ -12,6 +12,8 @@ What you get from this package:
 
  * Automatic re-bundle of server app on server changes
  * Automatic re-bundle of client app on client changes using webpack-dev-server and webpack HotModuleReplacementPlugin
+ 
+More documentation coming soon.
 
 ## Installation
 
