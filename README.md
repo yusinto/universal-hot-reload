@@ -21,7 +21,7 @@ npm i --save universal-hot-reload
 
 ## Quickstart
 
-1. In your server bootstrap, require universal-hot-reload and invoke it in development, passing it your server and client webpack config in that order. I use the config npm package to store all my app config:
+1. In your server bootstrap, require universal-hot-reload and invoke it in development, passing it your server and client webpack config paths in that order. I use the config npm package to store all my app config:
 
     ```javascript
     require('babel-polyfill');
