@@ -21,7 +21,6 @@ npm i --save-dev universal-hot-reload
 This package was tested and verified to work with webpack v1.13.2. It is not compatible with webpack v2, which is still in beta.
  
 ## Quickstart
-1. 
 1. Setup your server bundle webpack config like below. The important parts are:
     * Set target to node.
     * Excluding node_modules from the server bundle by setting externals using webpack-node-externals.

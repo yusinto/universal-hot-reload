@@ -85,15 +85,16 @@ module.exports = function main(serverConfig, clientConfig) {
   function watchServerChanges(serverConfig) {
     let initialLoad = true;
     let httpServerInitObject; // contains the httpServer itself and sockets
-    
+
     const bundlePath = serverConfig.output.path + '/' + serverConfig.output.filename;
     const serverCompiler = webpack(serverConfig);
-
-    // compile server side code
-    serverCompiler.watch({
+    const compilerOptions = {
       aggregateTimeout: 300, // wait so long for more changes
       poll: true // use polling instead of native watchers
-    }, function (err, stats) {
+    };
+
+    // compile server side code
+    serverCompiler.watch(compilerOptions, function onServerChange(err, stats) {
       if (err) {
         console.log('Server bundling error:' + JSON.stringify(err));
         return;
