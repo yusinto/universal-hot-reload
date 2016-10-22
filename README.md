@@ -102,6 +102,7 @@ npm i --save universal-hot-reload
     import config from 'config';
     import express from 'express';
     
+    const PORT = 3000;
     const app = express();
     app.use('/dist', express.static('dist', {maxAge: '1d'}));
 
@@ -119,8 +120,8 @@ npm i --save universal-hot-reload
     // ... your other code
     
     // Important: the listen method returns a http.server object which must be exported
-    const httpServer = app.listen(config.port, () => {
-      log.info(`Listening at ${config.port}`);
+    const httpServer = app.listen(PORT, () => {
+      log.info(`Listening at ${PORT}`);
     });
     
     // export http.server object so universal-hot-reload can access it
