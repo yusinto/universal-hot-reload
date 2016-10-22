@@ -101,7 +101,6 @@ This package was tested and verified to work with webpack v1.13.2. It is not com
     * You must export your express app so universal-hot-reload can access the http.server object
 
     ```javascript
-    import config from 'config';
     import express from 'express';
     
     const PORT = 3000;
