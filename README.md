@@ -12,14 +12,16 @@ What you get from this package:
 
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
  * Automatic re-bundle on client code changes using webpack-dev-server and webpack HotModuleReplacementPlugin.
- 
 
 ## Installation
 
-npm i --save universal-hot-reload
+npm i --save-dev universal-hot-reload
 
+## Dependencies
+This package was tested and verified to work with webpack v1.13.2. It is not compatible with webpack v2, which is still in beta.
+ 
 ## Quickstart
-
+1. 
 1. Setup your server bundle webpack config like below. The important parts are:
     * Set target to node.
     * Excluding node_modules from the server bundle by setting externals using webpack-node-externals.

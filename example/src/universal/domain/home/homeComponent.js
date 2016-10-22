@@ -19,7 +19,7 @@ export default class Home extends Component {
         {
             <div>
               <p>
-                Try changing this text in your code editor. You should see hot reload working on the client side, and
+                Try changing this text in your code editor. You should see hot reload working on the client side. Then
                 if you do a browser hard refresh, you'll see that server side rendering returns the updated text as well.
               </p>
               <button onClick={this.onClickGenerateRandom}>Generate random number</button>

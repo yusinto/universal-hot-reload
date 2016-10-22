@@ -14,11 +14,13 @@ module.exports = function main(serverConfig, clientConfig) {
    * @param serverBundlePath Path to the server bundle file.
    */
   function clearCache(serverBundlePath) {
-    Object.keys(require.cache).forEach(function (id) {
+    const cacheIds = Object.keys(require.cache);
+    for(let id of cacheIds) {
       if (id === serverBundlePath) {
         delete require.cache[id];
+        return;
       }
-    });
+    }
   }
 
   function getDevServerPortNumber(clientConfig) {
@@ -102,7 +104,7 @@ module.exports = function main(serverConfig, clientConfig) {
       if (!initialLoad) {
         httpServerInitObject.httpServer.close(function () {
           httpServerInitObject = initHttpServer(bundlePath);
-          console.log('Server restarted');
+          console.log('Server restarted ' + new Date());
         });
 
         // Destroy all open sockets
