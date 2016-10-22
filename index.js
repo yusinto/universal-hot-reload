@@ -72,8 +72,6 @@ module.exports = function main(serverConfig, clientConfig) {
       socket.on('close', function () {
         sockets.delete(socketId);
       });
-
-      socket.setTimeout(0);
     });
 
     return {httpServer, sockets};
