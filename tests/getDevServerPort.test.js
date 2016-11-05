@@ -7,7 +7,7 @@ describe('getDevServerPort', () => {
       devtool: 'cheap-module-inline-source-map',
       entry: [
         'babel-polyfill',
-        './src/client/index'
+        './src/client/index',
       ],
     };
     const expectedErrorMessage = 'webpack-dev-server has not been configured correctly in your client webpack config. In the "entry" array you need to add "webpack-dev-server/client?DEV_SERVER_URL" where DEV_SERVER_URL is in the format of http://localhost:PORT';
@@ -26,8 +26,8 @@ describe('getDevServerPort', () => {
       devtool: 'cheap-module-inline-source-map',
       entry: [
         'babel-polyfill',
-        'webpack-dev-server/client' + webpackDevServerUrl,
-        './src/client/index'
+        `webpack-dev-server/client${webpackDevServerUrl}`,
+        './src/client/index',
       ],
     };
     const expectedErrorMessage = 'Your webpack-dev-server entry must be in the format of "webpack-dev-server/client?DEV_SERVER_URL" where DEV_SERVER_URL is in the format of http://localhost:PORT';
@@ -46,8 +46,8 @@ describe('getDevServerPort', () => {
       devtool: 'cheap-module-inline-source-map',
       entry: [
         'babel-polyfill',
-        'webpack-dev-server/client?' + webpackDevServerUrl,
-        './src/client/index'
+        `webpack-dev-server/client?${webpackDevServerUrl}`,
+        './src/client/index',
       ],
     };
     const expectedErrorMessage = 'You need to specify a port for webpack-dev-server. In the "entry" array, make sure there is an entry that looks like "webpack-dev-server/client?DEV_SERVER_URL" where DEV_SERVER_URL is in the format of http://localhost:PORT';
@@ -66,8 +66,8 @@ describe('getDevServerPort', () => {
       devtool: 'cheap-module-inline-source-map',
       entry: [
         'babel-polyfill',
-        'webpack-dev-server/client?' + webpackDevServerUrl,
-        './src/client/index'
+        `webpack-dev-server/client?${webpackDevServerUrl}`,
+        './src/client/index',
       ],
     };
 

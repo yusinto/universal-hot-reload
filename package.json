@@ -8,7 +8,7 @@
     "test": "mocha --compilers js:babel-core/register --require tests/setup.js tests/*.test.js",
     "compile": "rimraf lib/* && babel src -d lib",
     "prepublish": "npm run compile",
-    "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' ./src"
+    "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' ./src ./tests"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,8 @@
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.1.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.5.0",
     "mocha": "^3.1.2",
     "proxyquire": "^1.7.10",
     "rimraf": "^2.5.4",

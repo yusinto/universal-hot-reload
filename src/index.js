@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+
 const clearRequireCache = require('./clearRequireCache');
 const getDevServerPort = require('./getDevServerPort');
 const initHttpServer = require('./initHttpServer');
@@ -15,13 +16,13 @@ const watchServerChanges = (serverConfig) => {
   const serverCompiler = webpack(serverConfig);
   const compilerOptions = {
     aggregateTimeout: 300, // wait so long for more changes
-    poll: true // use polling instead of native watchers
+    poll: true, // use polling instead of native watchers
   };
 
   // compile server side code
   serverCompiler.watch(compilerOptions, err => {
     if (err) {
-      console.log('Server bundling error:' + JSON.stringify(err));
+      console.log(`Server bundling error: ${JSON.stringify(err)}`);
       return;
     }
 
@@ -30,11 +31,11 @@ const watchServerChanges = (serverConfig) => {
     if (!initialLoad) {
       httpServerInitObject.httpServer.close(() => {
         httpServerInitObject = initHttpServer(bundlePath);
-        console.log('Server restarted ' + new Date());
+        console.log(`Server restarted ${new Date()}`);
       });
 
       // Destroy all open sockets
-      for (let socket of httpServerInitObject.sockets.values()) {
+      for (const socket of httpServerInitObject.sockets.values()) {
         socket.destroy();
       }
     } else {

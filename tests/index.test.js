@@ -54,7 +54,7 @@ describe('index', () => {
     mockWebpackDevServer.prototype.listen = td.function('webpack-dev-server.listen');
 
     universalHotReload = proxyquire('../src/index', {
-      'webpack': mockWebpack,
+      webpack: mockWebpack,
       'webpack-dev-server': mockWebpackDevServer,
       './clearRequireCache': mockClearRequireCache,
       './getDevServerPort': mockGetDevServerPort,

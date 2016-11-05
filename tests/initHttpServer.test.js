@@ -4,7 +4,6 @@ import td from 'testdouble';
 let mockSocket1;
 let mockSocket2;
 let onSocket1Close;
-let onSocket2Close;
 let onConnectionHandler;
 let initHttpServer;
 let mockHttpServer;
@@ -17,7 +16,6 @@ describe('initHttpServer', () => {
 
     mockSocket2 = td.object('socket2');
     mockSocket2.on = td.function('socket2.on');
-    td.when(mockSocket2.on('close', td.matchers.isA(Function))).thenDo((s, f) => onSocket2Close = f);
 
     mockHttpServer = td.object('http.Server');
     mockHttpServer.on = td.function('http.Server.on');

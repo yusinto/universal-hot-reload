@@ -4,7 +4,7 @@ describe('clearRequireCache', () => {
   it('should delete cache entry if found', () => {
     // arrange
     const testPackage = '../src/getDevServerPort';
-    require(testPackage); // add to cache
+    require(testPackage); //eslint-disable-line
     const cachePath = Object.keys(require.cache).find(id => id.includes('getDevServerPort'));
 
     // act
