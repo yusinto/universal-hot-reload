@@ -1,8 +1,8 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import clearRequireCache from './clearRequireCache';
-import getDevServerPort from './getDevServerPort';
-import initHttpServer from './initHttpServer';
+const clearRequireCache = require('./clearRequireCache');
+const getDevServerPort = require('./getDevServerPort');
+const initHttpServer = require('./initHttpServer');
 
 /**
  * Watches server for changes, recompile and restart express

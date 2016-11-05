@@ -10,6 +10,7 @@ const initHttpServer = (serverBundlePath) => {
   const sockets = new Map();
   let nextSocketId = 0;
 
+  // Inspired by Golo Roden's answer in:
   // http://stackoverflow.com/questions/14626636/how-do-i-shutdown-a-node-js-https-server-immediately
   httpServer.on('connection', (socket) => {
     let socketId = nextSocketId++;
