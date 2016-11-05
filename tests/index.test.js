@@ -53,12 +53,13 @@ describe('index', () => {
     mockWebpackDevServer = td.function('webpack-dev-server');
     mockWebpackDevServer.prototype.listen = td.function('webpack-dev-server.listen');
 
+    td.replace('../src/clearRequireCache', mockClearRequireCache);
+    td.replace('../src/getDevServerPort', mockGetDevServerPort);
+    td.replace('../src/initHttpServer', mockInitHttpServer);
+
     universalHotReload = proxyquire('../src/index', {
       webpack: mockWebpack,
       'webpack-dev-server': mockWebpackDevServer,
-      './clearRequireCache': mockClearRequireCache,
-      './getDevServerPort': mockGetDevServerPort,
-      './initHttpServer': mockInitHttpServer,
     }).default;
   });
 

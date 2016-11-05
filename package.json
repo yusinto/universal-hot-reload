@@ -2,7 +2,7 @@
   "name": "universal-hot-reload",
   "version": "0.2.5",
   "description": "Hot reload client and server webpack bundles for the ultimate development experience",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test:watch": "mocha --compilers js:babel-core/register --require tests/setup.js tests/*.test.js --watch",
     "test": "mocha --compilers js:babel-core/register --require tests/setup.js tests/*.test.js",
