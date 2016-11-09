@@ -33,11 +33,11 @@ const watchServerChanges = (serverConfig) => {
 
         if(httpServerInitObject) {
           initialLoad = false;
+          console.log(`Server bundled & restarted ${new Date()}`);
         } else {
+          // server bundling error has occurred
           initialLoad = true;
         }
-
-        console.log(`Server restarted ${new Date()}`);
       });
 
       // Destroy all open sockets
@@ -49,11 +49,11 @@ const watchServerChanges = (serverConfig) => {
 
       if(httpServerInitObject) {
         initialLoad = false;
+        console.log('Server bundled successfully');
       } else {
+        // server bundling error has occurred
         initialLoad = true;
       }
-      
-      console.log('Server bundling done');
     }
   });
 };
