@@ -30,6 +30,13 @@ const watchServerChanges = (serverConfig) => {
     if (!initialLoad) {
       httpServerInitObject.httpServer.close(() => {
         httpServerInitObject = initHttpServer(bundlePath);
+
+        if(httpServerInitObject) {
+          initialLoad = false;
+        } else {
+          initialLoad = true;
+        }
+
         console.log(`Server restarted ${new Date()}`);
       });
 
@@ -38,8 +45,14 @@ const watchServerChanges = (serverConfig) => {
         socket.destroy();
       }
     } else {
-      initialLoad = false;
       httpServerInitObject = initHttpServer(bundlePath);
+
+      if(httpServerInitObject) {
+        initialLoad = false;
+      } else {
+        initialLoad = true;
+      }
+      
       console.log('Server bundling done');
     }
   });
