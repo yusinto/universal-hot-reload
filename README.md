@@ -89,7 +89,7 @@ This package was tested and verified to work with webpack v1.13.2. It is not com
 
     ```javascript
     require('babel-polyfill');
-    const universalHotReload = require('universal-hot-reload');
+    const universalHotReload = require('universal-hot-reload').default;
    
     universalHotReload(require('path/to/webpack.server.config.js'), 
                        require('path/to/webpack.client.config.js'));
