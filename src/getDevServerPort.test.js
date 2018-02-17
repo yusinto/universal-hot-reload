@@ -1,4 +1,4 @@
-import getDevServerPort from '../src/getDevServerPort';
+import getDevServerPort from './getDevServerPort';
 
 describe('getDevServerPort', () => {
   it('should throw an exception if config entry does not contain webpack-dev-sever config', () => {
@@ -16,7 +16,7 @@ describe('getDevServerPort', () => {
     const act = () => getDevServerPort(mockClientConfig);
 
     // assert
-    expect(act).to.throw(expectedErrorMessage);
+    expect(act).toThrow(expectedErrorMessage);
   });
 
   it('should throw an exception if config entry is the wrong format', () => {
@@ -36,7 +36,7 @@ describe('getDevServerPort', () => {
     const act = () => getDevServerPort(mockClientConfig);
 
     // assert
-    expect(act).to.throw(expectedErrorMessage);
+    expect(act).toThrow(expectedErrorMessage);
   });
 
   it('should throw an exception if config entry is the wrong format', () => {
@@ -56,7 +56,7 @@ describe('getDevServerPort', () => {
     const act = () => getDevServerPort(mockClientConfig);
 
     // assert
-    expect(act).to.throw(expectedErrorMessage);
+    expect(act).toThrow(expectedErrorMessage);
   });
 
   it('should return port if configured correctly', () => {
@@ -75,6 +75,6 @@ describe('getDevServerPort', () => {
     const port = getDevServerPort(mockClientConfig);
 
     // assert
-    expect(port).to.eq('8001');
+    expect(port).toEqual('8001');
   });
 });

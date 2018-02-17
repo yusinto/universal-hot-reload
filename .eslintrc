@@ -2,7 +2,8 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "plugins": [
-    "babel"
+    "babel",
+    "import"
   ],
   "rules": {
     "no-return-assign": 0,
@@ -28,14 +29,14 @@
     "guard-for-in": 0,
     "no-restricted-syntax": 0,
     "no-unused-expressions": 0,
-    "one-var": 0,
+    "one-var": 0
   },
   "env": {
-    "mocha": true
+    "jest": true
   },
   "globals": {
     "ldClient": true,
     "window": true,
-    "expect": true,
+    "expect": true
   }
 }
