@@ -1355,7 +1355,7 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-chalk@^1.0.0, chalk@^1.1.3:
+chalk@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   dependencies:
@@ -2097,14 +2097,15 @@ eslint-config-airbnb@^16.1.0:
   dependencies:
     eslint-config-airbnb-base "^12.1.0"
 
-eslint-friendly-formatter@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-friendly-formatter/-/eslint-friendly-formatter-3.0.0.tgz#278874435a6c46ec1d94fa0b1ff494e30ef04290"
+eslint-friendly-formatter@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-friendly-formatter/-/eslint-friendly-formatter-4.0.0.tgz#f9b8962c15a23eefa85399bbea62ffe167439fd5"
   dependencies:
-    chalk "^1.0.0"
+    chalk "^2.0.1"
     coalescy "1.0.0"
     extend "^3.0.0"
     minimist "^1.2.0"
+    strip-ansi "^4.0.0"
     text-table "^0.2.0"
 
 eslint-import-resolver-node@^0.3.1:
@@ -5689,9 +5690,9 @@ test-exclude@^4.1.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
-testdouble@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/testdouble/-/testdouble-3.5.2.tgz#7ac91d08be05bac3b2acba57c430f6c62d0ad8af"
+testdouble@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/testdouble/-/testdouble-3.6.0.tgz#790aa09d97bb00d5c2fb5a81850cb2a9f4a45d12"
   dependencies:
     es6-map "^0.1.5"
     lodash "^4.17.4"
