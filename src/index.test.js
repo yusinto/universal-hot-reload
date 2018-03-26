@@ -58,7 +58,7 @@ describe('index', () => {
     td.reset();
   });
 
-  it('should clear require cache and initialise http.Server on initial load', () => {
+  it.only('should clear require cache and initialise http.Server on initial load', () => {
     // arrange
     const serverBundlePath = 'path/to/server/serverBundle.js';
     const serverConfig = {

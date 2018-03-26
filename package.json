@@ -7,7 +7,7 @@
     "test": "jest",
     "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js'",
     "prepublish": "npm run build",
-    "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' ./src ./tests"
+    "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
   "homepage": "https://github.com/yusinto/universal-hot-reload#readme",
   "dependencies": {
     "webpack": "^4.2.0",
-    "webpack-dev-server": "^3.1.1"
+    "webpack-dev-server": "^3.1.1",
+    "webpack-serve": "^0.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",

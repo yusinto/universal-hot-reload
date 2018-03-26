@@ -17,7 +17,7 @@ app.use((req, res) => {
                         <title>Universal Hot Reload</title>
                       </head>
                       <body>
-                        <div id="reactDiv">${renderToString(<App/>)}</div>
+                        <div id="reactDiv">${renderToString(<App />)}</div>
                         <script type="application/javascript" src="http://localhost:3002/dist/bundle.js"></script>
                       </body>
                     </html>`;
@@ -26,7 +26,7 @@ app.use((req, res) => {
 });
 
 const httpServer = app.listen(PORT, () => {
-  console.log(`Listening at ${PORT}`);
+  console.log(`Example app listening at ${PORT}...`);
 });
 
 // export httpServer object so universal-hot-reload can access it
