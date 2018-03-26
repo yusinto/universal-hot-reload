@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest",
     "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js'",
-    "prepublish": "npm run build",
     "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
     "prep-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
   },
