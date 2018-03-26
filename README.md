@@ -4,6 +4,7 @@
 
 > **Hot reload universally bundled webpack apps for the ultimate development experience** :clap:
 
+<b>Update 26/3/18: Now works with webpack 4 and babel 7.</b>
 <b>FOR DEVELOPMENT USE ONLY!</b>
 
 If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) this package will set up hot reloading for both server and client side.  
@@ -11,15 +12,12 @@ If you universally bundle your app using webpack (i.e. you use webpack to bundle
 What you get from this package:
 
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
- * Automatic re-bundle on client code changes using webpack-dev-server and webpack HotModuleReplacementPlugin.
+ * Automatic re-bundle on client code changes using webpack-serve.
 
 ## Installation
 
-npm i --save-dev universal-hot-reload
+yarn add universal-hot-reload -D
 
-## Dependencies
-This package was tested and verified to work with webpack v1.13.2. It is not compatible with webpack v2, which is still in beta.
- 
 ## Quickstart
 1. Setup your server bundle webpack config like below. The important parts are:
     * Set target to node.
@@ -32,7 +30,8 @@ This package was tested and verified to work with webpack v1.13.2. It is not com
     const nodeExternals = require('webpack-node-externals');
     
     module.exports = {
-      devtool: 'cheap-module-inline-source-map',
+      mode: 'development',
+      devtool: 'source-map',
       entry: './src/server/server.js',
       target: 'node', // Important
       externals: [nodeExternals()], // Important
@@ -46,57 +45,47 @@ This package was tested and verified to work with webpack v1.13.2. It is not com
     };
     ```
 2. Setup your client bundle webpack config like below. Important parts are:
-    * In entry you need to add the two webpack-dev-server items.
     * In output, publicPath must be the full url to the bundle.
-    * Pass babel loader react-hmre preset query string param.
-    * In plugins, add the HotModuleReplacementPlugin.
-    
+
     ```javascript
     const webpack = require('webpack');
     const path = require('path');
-    const webpackDevServerUrl = 'http://localhost:3002';
+    const webpackServeUrl = 'http://localhost:3002';
     
     module.exports = {
-      devtool: 'cheap-module-inline-source-map',
-      entry: [
-        'babel-polyfill',
-        'webpack-dev-server/client?' + webpackDevServerUrl, // Important
-        'webpack/hot/only-dev-server', // Important
-        './src/client/index'
-      ],
+      mode: 'development',
+      devtool: 'source-map',
+      entry: './src/client/index',
       output: {
         path: path.resolve('dist'),
-        publicPath: webpackDevServerUrl + '/dist/', // MUST BE FULL PATH!
+        publicPath: webpackServeUrl + '/dist/', // MUST BE FULL PATH!
         filename: 'bundle.js'
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?$/,
-            loader: 'babel',
+            loader: 'babel-loader',
             include: path.resolve('src'),
-            query: {
-              presets: ['react-hmre'], // Important
+            exclude: /node_modules/,
+            options: {
+              cacheDirectory: true,
             }
           }]
       },
-      plugins: [
-        new webpack.HotModuleReplacementPlugin() // Important
-      ]
     };
     ```
 3. In your server bootstrap, require universal-hot-reload and invoke it, passing it your server and client webpack config objects in that order:
 
     ```javascript
-    require('babel-polyfill');
-    const universalHotReload = require('universal-hot-reload').default;
+    const UniversalHotReload = require('universal-hot-reload').default;
    
-    universalHotReload(require('path/to/webpack.server.config.js'), 
+    UniversalHotReload(require('path/to/webpack.server.config.js'),
                        require('path/to/webpack.client.config.js'));
     ```
 
 4. In your server entry file (as specified in your webpack server config "entry" property):
-    * In your html template for server rendering, the script reference to the client bundle should point to webpackDevServerUrl/dist/bundle.js.
+    * In your html template for server rendering, the script reference to the client bundle should point to webpackServeUrl/dist/bundle.js.
     * You must export your express app so universal-hot-reload can access the http.server object
 
     ```javascript
