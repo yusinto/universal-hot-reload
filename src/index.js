@@ -1,7 +1,7 @@
 import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+import WebpackServe from 'webpack-serve';
+import url from 'url';
 import clearRequireCache from './clearRequireCache';
-import getDevServerPort from './getDevServerPort';
 import initHttpServer from './initHttpServer';
 
 /**
@@ -19,7 +19,7 @@ const watchServerChanges = (serverConfig) => {
   };
 
   // compile server side code
-  serverCompiler.watch(compilerOptions, err => {
+  serverCompiler.watch(compilerOptions, (err) => {
     if (err) {
       console.log(`Server bundling error: ${JSON.stringify(err)}`);
       return;
@@ -31,7 +31,7 @@ const watchServerChanges = (serverConfig) => {
       httpServerInitObject.httpServer.close(() => {
         httpServerInitObject = initHttpServer(bundlePath);
 
-        if(httpServerInitObject) {
+        if (httpServerInitObject) {
           initialLoad = false;
           console.log(`Server bundled & restarted ${new Date()}`);
         } else {
@@ -47,7 +47,7 @@ const watchServerChanges = (serverConfig) => {
     } else {
       httpServerInitObject = initHttpServer(bundlePath);
 
-      if(httpServerInitObject) {
+      if (httpServerInitObject) {
         initialLoad = false;
         console.log('Server bundled successfully');
       } else {
@@ -61,23 +61,27 @@ const watchServerChanges = (serverConfig) => {
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = (clientConfig) => {
-  const devServerPort = getDevServerPort(clientConfig);
+const watchClientChanges = clientConfig => {
   const basePath = clientConfig.output.publicPath;
-
+  const {port} = url.parse(basePath);
   const serverOptions = {
     quiet: false, // don’t output anything to the console.
     noInfo: true, // suppress boring information
-    hot: true, // switch the server to hot mode.
-    inline: true, // embed the webpack-dev-server runtime into the bundle.
     lazy: false, // no watching, compiles on request
-    contentBase: basePath, // base path for the content
     publicPath: basePath,
-    stats: true,
+    stats: 'errors-only',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   };
-  const devCompiler = webpack(clientConfig);
-  const devServer = new WebpackDevServer(devCompiler, serverOptions);
-  devServer.listen(devServerPort, 'localhost', console.log(`weback-dev-server listening at ${devServerPort}`));
+
+  WebpackServe({
+    config: clientConfig,
+    dev: serverOptions,
+    content: basePath,
+    port,
+    'log-level': 'warn',
+  });
 };
 
 const main = (serverConfig, clientConfig) => {

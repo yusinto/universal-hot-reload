@@ -1,13 +1,18 @@
-import proxyquire from 'proxyquire';
+jest.mock('webpack', () => global.td.function('webpack'));
+jest.mock('webpack-dev-server', () => global.td.function('webpack-dev-server'));
+jest.mock('./clearRequireCache', () => global.td.function('clearRequireCache'));
+jest.mock('./getDevServerPort', () => global.td.function('getDevServerPort'));
+jest.mock('./initHttpServer', () => global.td.function('initHttpServer'));
+
 import td from 'testdouble';
+import mockWebpack from 'webpack';
+import mockWebpackDevServer from 'webpack-dev-server';
+import mockClearRequireCache from './clearRequireCache';
+import mockGetDevServerPort from './getDevServerPort';
+import mockInitHttpServer from './initHttpServer';
 
 let universalHotReload,
-  mockWebpack,
   mockWebpackCompiler,
-  mockClearRequireCache,
-  mockWebpackDevServer,
-  mockGetDevServerPort,
-  mockInitHttpServer,
   onServerChange,
   mockHttpServer,
   mockHttpServerInitObject,
@@ -25,7 +30,6 @@ describe('index', () => {
       poll: true,
     }), td.matchers.isA(Function))).thenDo((o, f) => onServerChange = f);
 
-    mockWebpack = td.function('webpack');
     td.when(mockWebpack(td.matchers.anything())).thenReturn(mockWebpackCompiler);
 
     mockSockets = new Map();
@@ -43,31 +47,18 @@ describe('index', () => {
       httpServer: mockHttpServer,
       sockets: mockSockets,
     };
-    mockClearRequireCache = td.function('clearRequireCache');
-    mockInitHttpServer = td.function('initHttpServer');
     td.when(mockInitHttpServer(td.matchers.anything())).thenReturn(mockHttpServerInitObject);
-
-    mockGetDevServerPort = td.function('getDevServerPort');
     td.when(mockGetDevServerPort(td.matchers.anything())).thenReturn('8001');
 
-    mockWebpackDevServer = td.function('webpack-dev-server');
     mockWebpackDevServer.prototype.listen = td.function('webpack-dev-server.listen');
-
-    td.replace('../src/clearRequireCache', mockClearRequireCache);
-    td.replace('../src/getDevServerPort', mockGetDevServerPort);
-    td.replace('../src/initHttpServer', mockInitHttpServer);
-
-    universalHotReload = proxyquire('../src/index', {
-      webpack: mockWebpack,
-      'webpack-dev-server': mockWebpackDevServer,
-    }).default;
+    universalHotReload = require('../src/index').default;
   });
 
   afterEach(() => {
     td.reset();
   });
 
-  it('should clear require cache and initialise http.Server on initial load', () => {
+  it.only('should clear require cache and initialise http.Server on initial load', () => {
     // arrange
     const serverBundlePath = 'path/to/server/serverBundle.js';
     const serverConfig = {
