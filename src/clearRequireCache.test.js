@@ -1,17 +1,14 @@
-// import clearRequireCache from './clearRequireCache';
+import clearRequireCache from './clearRequireCache';
 
 describe('clearRequireCache', () => {
   test('should delete cache entry if found', () => {
     // arrange
-    // const testPackage = './getDevServerPort';
-    require('./clearRequireCache'); //eslint-disable-line
+    const testPackage = 'url';
+    require(testPackage); //eslint-disable-line
+    const cachePath = Object.keys(require.cache).find(id => id.includes('url'));
 
-    // Object.keys(require.cache).forEach(c => console.log(`found: ${c}`));
-
-    const ab = Object.keys(require.cache);
-    console.log(`ab: ${ab.length}`);
     // act
-    // clearRequireCache(cachePath);
+    clearRequireCache(cachePath);
 
     // TODO: require.cache seems to ALWAYS be undefined for some reason..
     // assert

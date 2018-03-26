@@ -1,14 +1,12 @@
 jest.mock('webpack', () => global.td.function('webpack'));
-jest.mock('webpack-dev-server', () => global.td.function('webpack-dev-server'));
+jest.mock('webpack-serve', () => global.td.function('webpack-serve'));
 jest.mock('./clearRequireCache', () => global.td.function('clearRequireCache'));
-jest.mock('./getDevServerPort', () => global.td.function('getDevServerPort'));
 jest.mock('./initHttpServer', () => global.td.function('initHttpServer'));
 
 import td from 'testdouble';
 import mockWebpack from 'webpack';
-import mockWebpackDevServer from 'webpack-dev-server';
+import mockWebpackServe from 'webpack-serve';
 import mockClearRequireCache from './clearRequireCache';
-import mockGetDevServerPort from './getDevServerPort';
 import mockInitHttpServer from './initHttpServer';
 
 let universalHotReload,
@@ -48,9 +46,8 @@ describe('index', () => {
       sockets: mockSockets,
     };
     td.when(mockInitHttpServer(td.matchers.anything())).thenReturn(mockHttpServerInitObject);
-    td.when(mockGetDevServerPort(td.matchers.anything())).thenReturn('8001');
 
-    mockWebpackDevServer.prototype.listen = td.function('webpack-dev-server.listen');
+    mockWebpackServe.prototype.listen = td.function('webpack-dev-server.listen');
     universalHotReload = require('../src/index').default;
   });
 
@@ -58,7 +55,7 @@ describe('index', () => {
     td.reset();
   });
 
-  it.only('should clear require cache and initialise http.Server on initial load', () => {
+  it('should clear require cache and initialise http.Server on initial load', () => {
     // arrange
     const serverBundlePath = 'path/to/server/serverBundle.js';
     const serverConfig = {
@@ -84,7 +81,7 @@ describe('index', () => {
     }), td.matchers.isA(Function)));
     td.verify(mockClearRequireCache(serverBundlePath));
     td.verify(mockInitHttpServer(serverBundlePath));
-    td.verify(mockWebpackDevServer.prototype.listen('8001', 'localhost', td.matchers.anything()));
+    td.verify(mockWebpackServe(td.matchers.anything()));
   });
 
   it('should clear require cache, close http.Server and destroy all sockets on subsequent loads', () => {
