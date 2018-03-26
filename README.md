@@ -5,6 +5,7 @@
 > **Hot reload universally bundled webpack apps for the ultimate development experience** :clap:
 
 <b>Update 26/3/18: Now works with webpack 4 and babel 7.</b>
+
 <b>FOR DEVELOPMENT USE ONLY!</b>
 
 If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) this package will set up hot reloading for both server and client side.  
@@ -44,8 +45,8 @@ yarn add universal-hot-reload -D
       // other standard webpack config like loaders, plugins, etc...
     };
     ```
-2. Setup your client bundle webpack config like below. Important parts are:
-    * In output, publicPath must be the full url to the bundle.
+2. Setup your client bundle webpack config like below. Note that in output, publicPath
+must be the full url to the bundle:
 
     ```javascript
     const webpack = require('webpack');
@@ -97,7 +98,7 @@ yarn add universal-hot-reload -D
 
     // ...your other express middleware
     
-    // Important: reference webpack dev server for the client bundle
+    // Important: reference webpack serve url for the client bundle
     const html = `<!DOCTYPE html>
                 <html>
                   <body>
