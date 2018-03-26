@@ -25,7 +25,7 @@
     "object-curly-spacing": 0,
     "spaced-comment": 0,
     "import/no-extraneous-dependencies": 0,
-    "import/imports-first": 0,
+    "import/first": 0,
     "import/prefer-default-export": 0,
     "import/no-mutable-exports": 0,
     "import/no-named-as-default": 0,
