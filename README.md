@@ -125,4 +125,5 @@ must be the full url to the bundle:
     ```
 
 ## Example
-Check the [example](https://github.com/yusinto/universal-hot-reload/tree/master/example) for a fully working spa with react, redux and react-router.
+Check the [example](https://github.com/yusinto/universal-hot-reload/tree/master/example)
+for a fully working spa with react, redux and react-router.
