@@ -57,7 +57,7 @@ must be the full url to the bundle:
       entry: './src/client/index',
       output: {
         path: path.resolve('dist'),
-        publicPath: webpackServeUrl + '/dist/', // MUST BE FULL PATH!
+        publicPath: `${webpackServeUrl}/dist/`, // MUST BE FULL PATH!
         filename: 'bundle.js'
       },
       module: {
@@ -94,8 +94,6 @@ must be the full url to the bundle:
     const app = express();
     app.use('/dist', express.static('dist', {maxAge: '1d'}));
 
-    // ...your other express middleware
-    
     // Important: reference webpack serve url for the client bundle
     const html = `<!DOCTYPE html>
                 <html>
@@ -105,8 +103,6 @@ must be the full url to the bundle:
                   </body>
                 </html>`;
                 
-    // ... your other code
-    
     // Important: the listen method returns a http.server object which must be exported
     const httpServer = app.listen(PORT, () => {
       log.info(`Listening at ${PORT}`);
