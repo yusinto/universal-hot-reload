@@ -49,7 +49,6 @@ yarn add universal-hot-reload -D
 must be the full url to the bundle:
 
     ```javascript
-    const webpack = require('webpack');
     const path = require('path');
     const webpackServeUrl = 'http://localhost:3002';
     
