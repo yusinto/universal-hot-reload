@@ -1,6 +1,7 @@
 import Express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
+import {StaticRouter} from 'react-router-dom';
 import App from '../universal/app';
 
 const PORT = 3000;
@@ -17,7 +18,13 @@ app.use((req, res) => {
                         <title>Universal Hot Reload</title>
                       </head>
                       <body>
-                        <div id="reactDiv">${renderToString(<App />)}</div>
+                        <div id="reactDiv">${renderToString(
+                          <StaticRouter 
+                            location={req.url}
+                            context={{}}>
+                            <App />
+                          </StaticRouter>
+                      )}</div>
                         <script type="application/javascript" src="http://localhost:3002/dist/bundle.js"></script>
                       </body>
                     </html>`;
