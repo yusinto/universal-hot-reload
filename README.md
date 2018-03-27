@@ -26,7 +26,6 @@ yarn add universal-hot-reload -D
     * Set libraryTarget to commonjs2 which adds module.exports to the beginning of the bundle, so universal-hot-reload can access your app.
 
     ```javascript
-    const webpack = require('webpack');
     const path = require('path');
     const nodeExternals = require('webpack-node-externals');
     
