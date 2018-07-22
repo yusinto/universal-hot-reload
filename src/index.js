@@ -1,3 +1,4 @@
+import { join } from 'path';
 import webpack from 'webpack';
 import WebpackServe from 'webpack-serve';
 import url from 'url';
@@ -11,7 +12,8 @@ const watchServerChanges = (serverConfig) => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
-  const bundlePath = `${serverConfig.output.path}/${serverConfig.output.filename}`;
+  // Issue #4: https://github.com/yusinto/universal-hot-reload/issues/4
+  const bundlePath = join(serverConfig.output.path, serverConfig.output.filename);
   const serverCompiler = webpack(serverConfig);
   const compilerOptions = {
     aggregateTimeout: 300, // wait so long for more changes
