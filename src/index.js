@@ -12,7 +12,6 @@ const watchServerChanges = (serverConfig) => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
-  // Issue #4: https://github.com/yusinto/universal-hot-reload/issues/4
   const bundlePath = join(serverConfig.output.path, serverConfig.output.filename);
   const serverCompiler = webpack(serverConfig);
   const compilerOptions = {
