@@ -9,7 +9,7 @@ const initHttpServer = (serverBundlePath) => {
   let httpServer;
 
   try {
-    httpServer = require(serverBundlePath); //eslint-disable-line
+    httpServer = require(serverBundlePath).default; //eslint-disable-line
   } catch (e) {
     console.log(e);
     return null;

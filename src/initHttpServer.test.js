@@ -1,4 +1,4 @@
-jest.mock('./index', () => ({on: global.td.function('httpServer.on')}));
+jest.mock('./index', () => ({default: {on: global.td.function('httpServer.on')}}));
 
 import td from 'testdouble';
 import mockHttpServer from './index';
@@ -19,7 +19,7 @@ describe('initHttpServer', () => {
     mockSocket2 = {
       on: td.function('socket2.on'),
     };
-    td.when(mockHttpServer.on('connection', td.matchers.isA(Function))).thenDo((s, f) => onConnectionHandler = f);
+    td.when(mockHttpServer.default.on('connection', td.matchers.isA(Function))).thenDo((s, f) => onConnectionHandler = f);
 
     initHttpServer = require('./initHttpServer').default;
   });
@@ -28,10 +28,10 @@ describe('initHttpServer', () => {
     td.reset();
   });
 
-  test('should return an object containing http.Server and a map of socket references', () => {
+  it('should return an object containing http.Server and a map of socket references', () => {
     const result = initHttpServer('./index');
 
-    expect(result.httpServer).toEqual(mockHttpServer);
+    expect(result.httpServer).toEqual(mockHttpServer.default);
     expect(result.sockets).not.toBeNull();
   });
 

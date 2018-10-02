@@ -1,6 +1,6 @@
-import { join } from 'path';
+import {join} from 'path';
 import webpack from 'webpack';
-import WebpackServe from 'webpack-serve';
+import WebpackDevServer from 'webpack-dev-server';
 import url from 'url';
 import clearRequireCache from './clearRequireCache';
 import initHttpServer from './initHttpServer';
@@ -63,25 +63,40 @@ const watchServerChanges = (serverConfig) => {
  * Start webpack dev server for hmr
  */
 const watchClientChanges = clientConfig => {
+  const port = 3002;
   const basePath = clientConfig.output.publicPath;
-  const {port} = url.parse(basePath);
-  const serverOptions = {
-    quiet: false, // don’t output anything to the console.
-    noInfo: true, // suppress boring information
-    lazy: false, // no watching, compiles on request
-    publicPath: basePath,
-    stats: 'errors-only',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
+  // const serverOptions = {
+  //   quiet: false, // don’t output anything to the console.
+  //   noInfo: true, // suppress boring information
+  //   lazy: false, // no watching, compiles on request
+  //   publicPath: basePath,
+  //   stats: 'errors-only',
+  //   headers: {
+  //     'Access-Control-Allow-Origin': '*',
+  //   },
+  // };
+
+  // const options = {
+  //   contentBase: basePath,
+  //   // dev: serverOptions,
+  //   port,
+  //   hot: true,
+  //   clientLogLevel: 'none',
+  //   noInfo: true,
+  // };
+
+  const options = {
+    contentBase: basePath,
+    hot: true,
+    host: 'localhost',
   };
 
-  WebpackServe({
-    config: clientConfig,
-    dev: serverOptions,
-    content: basePath,
-    port,
-    'log-level': 'warn',
+  WebpackDevServer.addDevServerEntrypoints(clientConfig, options);
+  const compiler = webpack(clientConfig);
+  const server = new WebpackDevServer(compiler, options);
+
+  server.listen(port, options.host, () => {
+    console.log(`Wepback dev server listening on ${port}`);
   });
 };
 

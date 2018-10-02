@@ -37,4 +37,4 @@ const httpServer = app.listen(PORT, () => {
 });
 
 // export httpServer object so universal-hot-reload can access it
-module.exports = httpServer;
+export default httpServer;

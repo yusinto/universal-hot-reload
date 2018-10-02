@@ -8,8 +8,8 @@ const App = () =>
     <header>
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/">Homeee</Link></li>
+          <li><Link to="/contact">Contacdafdt</Link></li>
         </ul>
       </nav>
     </header>
