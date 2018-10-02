@@ -1,7 +1,7 @@
 import {join} from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import url from 'url';
+// import url from 'url';
 import clearRequireCache from './clearRequireCache';
 import initHttpServer from './initHttpServer';
 
@@ -16,7 +16,7 @@ const watchServerChanges = (serverConfig) => {
   const serverCompiler = webpack(serverConfig);
   const compilerOptions = {
     aggregateTimeout: 300, // wait so long for more changes
-    poll: true, // use polling instead of native watchers
+    poll: true, // use polling instead of native watchers,
   };
 
   // compile server side code
@@ -64,7 +64,7 @@ const watchServerChanges = (serverConfig) => {
  */
 const watchClientChanges = clientConfig => {
   const port = 3002;
-  const basePath = clientConfig.output.publicPath;
+  // const basePath = clientConfig.output.publicPath;
   // const serverOptions = {
   //   quiet: false, // don’t output anything to the console.
   //   noInfo: true, // suppress boring information
@@ -86,9 +86,10 @@ const watchClientChanges = clientConfig => {
   // };
 
   const options = {
-    contentBase: basePath,
+    contentBase: '/dist/',
     hot: true,
     host: 'localhost',
+    noInfo: true,
   };
 
   WebpackDevServer.addDevServerEntrypoints(clientConfig, options);

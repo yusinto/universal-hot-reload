@@ -1,4 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
+
+const WebpackDevServeUrl = 'http://localhost:3002';
 
 module.exports = {
   mode: 'development',
@@ -6,7 +9,7 @@ module.exports = {
   entry: './src/client/index',
   output: {
     path: path.resolve('dist'),
-    publicPath: `/dist/`,
+    publicPath: `${WebpackDevServeUrl}/dist/`, // MUST BE FULL PATH!
     filename: 'bundle.js',
   },
   module: {
@@ -21,4 +24,7 @@ module.exports = {
         },
       }],
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ]
 };
