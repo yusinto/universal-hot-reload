@@ -1,6 +1,6 @@
 const path = require('path');
 
-const WebpackServeUrl = 'http://localhost:3002';
+const WebpackDevServerUrl = 'http://localhost:3002';
 
 module.exports = {
   mode: 'development',
@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/client/index',
   output: {
     path: path.resolve('dist'),
-    publicPath: `${WebpackServeUrl}/dist/`, // MUST BE FULL PATH!
+    publicPath: `${WebpackDevServerUrl}/dist/`, // MUST BE FULL PATH!
     filename: 'bundle.js',
   },
   module: {
