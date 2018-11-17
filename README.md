@@ -8,12 +8,13 @@
 
 <b>FOR DEVELOPMENT USE ONLY!</b>
 
-If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) this package will set up hot reloading for both server and client side.  
+If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) 
+this package will set up hot reloading for both server and client side.  
 
 What you get from this package:
 
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
- * Automatic re-bundle on client code changes using webpack-serve.
+ * Automatic re-bundle on client code changes using webpack-dev-server.
 
 ## Installation
 
@@ -57,7 +58,7 @@ must be the full url to the bundle:
       entry: './src/client/index',
       output: {
         path: path.resolve('dist'),
-        publicPath: `${webpackServeUrl}/dist/`, // MUST BE FULL PATH!
+        publicPath: `${webpackServeUrl}/dist/`, // MUST BE FULL PATH with trailing slash!
         filename: 'bundle.js'
       },
       module: {
@@ -103,13 +104,11 @@ must be the full url to the bundle:
                   </body>
                 </html>`;
                 
-    // Important: the listen method returns a http.server object which must be exported
-    const httpServer = app.listen(PORT, () => {
+    // Important: the listen method returns a http.server object which must be default exported
+    // so universal-hot-reload can access it
+    export default app.listen(PORT, () => {
       log.info(`Listening at ${PORT}`);
     });
-    
-    // export http.server object so universal-hot-reload can access it
-    module.exports = httpServer;
     ```
 
 5. Run your app!
