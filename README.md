@@ -4,17 +4,15 @@
 
 > **Hot reload universally bundled webpack apps for the ultimate development experience** :clap:
 
-<b>Update 26/3/18: Now works with webpack 4 and babel 7.</b>
-
-<b>FOR DEVELOPMENT USE ONLY!</b>
-
 If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) 
 this package will set up hot reloading for both server and client side.  
 
-What you get from this package:
+Why use this package?
 
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
  * Automatic re-bundle on client code changes using webpack-dev-server.
+
+<b>This should be used in development only!</b>
 
 ## Installation
 
