@@ -1,16 +1,15 @@
 import Express from 'express';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
-import {StaticRouter} from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
 import App from '../universal/app';
-import {getDevServerBundleUrl} from '../../../lib';
+import { getDevServerBundleUrl } from '../../../lib';
 import webpackClientConfig from '../../webpack.config.client';
 
 const PORT = 3000;
 const app = Express();
 const devServerBundleUrl = getDevServerBundleUrl(webpackClientConfig);
 
-app.use('/dist', Express.static('dist', {maxAge: '1d'}));
+app.use('/dist', Express.static('dist', { maxAge: '1d' }));
 
 app.use((req, res) => {
   const html = `<!DOCTYPE html>
@@ -22,12 +21,10 @@ app.use((req, res) => {
                       </head>
                       <body>
                         <div id="reactDiv">${renderToString(
-    <StaticRouter
-      location={req.url}
-      context={{}}>
-      <App/>
-    </StaticRouter>
-  )}</div>
+                          <StaticRouter location={req.url} context={{}}>
+                            <App />
+                          </StaticRouter>,
+                        )}</div>
                         <script type="application/javascript" src="${devServerBundleUrl}"></script>
                       </body>
                     </html>`;
