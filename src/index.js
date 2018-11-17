@@ -1,4 +1,4 @@
-import {join} from 'path';
+import { join } from 'path';
 import webpack from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
 import url from 'url';
@@ -6,14 +6,16 @@ import clearRequireCache from './clearRequireCache';
 import initHttpServer from './initHttpServer';
 
 export const getDevServerBundleUrl = clientConfig => {
-  const {output: {publicPath, filename}} = clientConfig;
-  return`${publicPath}${filename}`;
+  const {
+    output: { publicPath, filename },
+  } = clientConfig;
+  return `${publicPath}${filename}`;
 };
 
 /**
  * Watches server for changes, recompile and restart express
  */
-const watchServerChanges = (serverConfig) => {
+const watchServerChanges = serverConfig => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
@@ -25,7 +27,7 @@ const watchServerChanges = (serverConfig) => {
   };
 
   // compile server side code
-  serverCompiler.watch(compilerOptions, (err) => {
+  serverCompiler.watch(compilerOptions, err => {
     if (err) {
       console.log(`Server bundling error: ${JSON.stringify(err)}`);
       return;
@@ -68,13 +70,16 @@ const watchServerChanges = (serverConfig) => {
  * Start webpack dev server for hmr
  */
 const watchClientChanges = clientConfig => {
-  const {publicPath} = clientConfig.output;
-  const {protocol, host, port} = url.parse(publicPath);
+  const { publicPath } = clientConfig.output;
+  const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
 
-  const {entry, plugins} = clientConfig;
-  const hmrEntries = [`${require.resolve('webpack-dev-server/client/')}?${webpackDevServerUrl}`, require.resolve('webpack/hot/dev-server')];
-  if(entry.push) {
+  const { entry, plugins } = clientConfig;
+  const hmrEntries = [
+    `${require.resolve('webpack-dev-server/client/')}?${webpackDevServerUrl}`,
+    require.resolve('webpack/hot/dev-server'),
+  ];
+  if (entry.push) {
     clientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
   } else {
     clientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line

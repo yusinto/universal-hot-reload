@@ -1,11 +1,11 @@
 jest.mock('webpack', () => global.td.function('webpack'));
-jest.mock('webpack-serve', () => global.td.function('webpack-serve'));
+jest.mock('webpack-dev-server', () => global.td.function('webpack-dev-server'));
 jest.mock('./clearRequireCache', () => global.td.function('clearRequireCache'));
 jest.mock('./initHttpServer', () => global.td.function('initHttpServer'));
 
 import td from 'testdouble';
 import mockWebpack from 'webpack';
-import mockWebpackServe from 'webpack-serve';
+import mockWebpackDevServer from 'webpack-dev-server';
 import mockClearRequireCache from './clearRequireCache';
 import mockInitHttpServer from './initHttpServer';
 
@@ -23,10 +23,15 @@ describe('index', () => {
   beforeEach(() => {
     mockWebpackCompiler = td.object('webpackCompiler');
     mockWebpackCompiler.watch = td.function('webpackCompiler.watch');
-    td.when(mockWebpackCompiler.watch(td.matchers.contains({
-      aggregateTimeout: 300,
-      poll: true,
-    }), td.matchers.isA(Function))).thenDo((o, f) => onServerChange = f);
+    td.when(
+      mockWebpackCompiler.watch(
+        td.matchers.contains({
+          aggregateTimeout: 300,
+          poll: true,
+        }),
+        td.matchers.isA(Function),
+      ),
+    ).thenDo((o, f) => (onServerChange = f));
 
     td.when(mockWebpack(td.matchers.anything())).thenReturn(mockWebpackCompiler);
 
@@ -40,14 +45,14 @@ describe('index', () => {
 
     mockHttpServer = td.object('http.Server');
     mockHttpServer.close = td.function('http.Server.close');
-    td.when(mockHttpServer.close(td.matchers.anything())).thenDo(f => mockHttpServerCloseHandler = f);
+    td.when(mockHttpServer.close(td.matchers.anything())).thenDo(f => (mockHttpServerCloseHandler = f));
     mockHttpServerInitObject = {
       httpServer: mockHttpServer,
       sockets: mockSockets,
     };
     td.when(mockInitHttpServer(td.matchers.anything())).thenReturn(mockHttpServerInitObject);
 
-    mockWebpackServe.prototype.listen = td.function('webpack-dev-server.listen');
+    mockWebpackDevServer.prototype.listen = td.function('webpack-dev-server.listen');
     universalHotReload = require('../src/index').default;
   });
 
@@ -75,13 +80,18 @@ describe('index', () => {
     onServerChange();
 
     // assert
-    td.verify(mockWebpackCompiler.watch(td.matchers.contains({
-      aggregateTimeout: 300,
-      poll: true,
-    }), td.matchers.isA(Function)));
+    td.verify(
+      mockWebpackCompiler.watch(
+        td.matchers.contains({
+          aggregateTimeout: 300,
+          poll: true,
+        }),
+        td.matchers.isA(Function),
+      ),
+    );
     td.verify(mockClearRequireCache(serverBundlePath));
     td.verify(mockInitHttpServer(serverBundlePath));
-    td.verify(mockWebpackServe(td.matchers.anything()));
+    td.verify(mockWebpackDevServer(td.matchers.anything()));
   });
 
   it('should clear require cache, close http.Server and destroy all sockets on subsequent loads', () => {
@@ -106,10 +116,10 @@ describe('index', () => {
     mockHttpServerCloseHandler(); // simulate http.Server.close callback
 
     // assert
-    td.verify(mockClearRequireCache(serverBundlePath), {times: 2});
+    td.verify(mockClearRequireCache(serverBundlePath), { times: 2 });
     td.verify(mockHttpServer.close(td.matchers.anything()));
     td.verify(socket0.destroy());
     td.verify(socket1.destroy());
-    td.verify(mockInitHttpServer(serverBundlePath), {times: 2});
+    td.verify(mockInitHttpServer(serverBundlePath), { times: 2 });
   });
 });

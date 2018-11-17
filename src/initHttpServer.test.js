@@ -1,4 +1,4 @@
-jest.mock('./index', () => ({on: global.td.function('httpServer.on')}));
+jest.mock('./index', () => ({ on: global.td.function('httpServer.on') }));
 
 import td from 'testdouble';
 import mockHttpServer from './index';
@@ -14,12 +14,12 @@ describe('initHttpServer', () => {
     mockSocket1 = {
       on: td.function('socket1.on'),
     };
-    td.when(mockSocket1.on('close', td.matchers.isA(Function))).thenDo((s, f) => onSocket1Close = f);
+    td.when(mockSocket1.on('close', td.matchers.isA(Function))).thenDo((s, f) => (onSocket1Close = f));
 
     mockSocket2 = {
       on: td.function('socket2.on'),
     };
-    td.when(mockHttpServer.on('connection', td.matchers.isA(Function))).thenDo((s, f) => onConnectionHandler = f);
+    td.when(mockHttpServer.on('connection', td.matchers.isA(Function))).thenDo((s, f) => (onConnectionHandler = f));
 
     initHttpServer = require('./initHttpServer').default;
   });

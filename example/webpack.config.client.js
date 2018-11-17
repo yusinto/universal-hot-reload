@@ -21,6 +21,7 @@ module.exports = {
         options: {
           cacheDirectory: true,
         },
-      }],
+      },
+    ],
   },
 };

@@ -7,6 +7,7 @@
     "test": "jest",
     "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js'",
     "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
+    "prettier": "prettier --write src/**/*.js",
     "prep-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
   },
   "repository": {
@@ -42,12 +43,15 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-friendly-formatter": "^4.0.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.7.0",
     "jest": "^23.6.0",
+    "prettier": "1.15.2",
     "rimraf": "^2.6.2",
     "testdouble": "^3.6.0"
   }

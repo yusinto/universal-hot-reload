@@ -5,12 +5,15 @@
   },
   "extends": [
     "airbnb",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:prettier/recommended"
   ],
   "plugins": [
-    "babel"
+    "babel",
+    "prettier"
   ],
   "rules": {
+    "prettier/prettier": "error",
     "arrow-parens": 0,
     "eol-last": 0,
     "global-require": 0,
@@ -34,7 +37,12 @@
     "no-duplicate-imports": 0,
     "import/no-duplicates": 1,
     "no-useless-escape": 0,
-    "no-unused-expressions": [1 , {"allowTernary": true}]
+    "no-unused-expressions": [
+      1,
+      {
+        "allowTernary": true
+      }
+    ]
   },
   "env": {
     "jest": true,
