@@ -15,7 +15,7 @@ export const getDevServerBundleUrl = clientConfig => {
 /**
  * Watches server for changes, recompile and restart express
  */
-const watchServerChanges = serverConfig => {
+export const watchServerChanges = serverConfig => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
@@ -69,7 +69,7 @@ const watchServerChanges = serverConfig => {
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = clientConfig => {
+export const watchClientChanges = clientConfig => {
   const { publicPath } = clientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
