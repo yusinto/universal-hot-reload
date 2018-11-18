@@ -26,7 +26,9 @@ In server bootstrap, do this:
 ```js
 const UniversalHotReload = require('universal-hot-reload').default;
 
-UniversalHotReload(require('path/to/webpack.server.config.js'), require('path/to/webpack.client.config.js'));
+UniversalHotReload(
+  require('path/to/webpack.server.config.js'), 
+  require('path/to/webpack.client.config.js'));
 ```
 
 ## Advanced
@@ -87,7 +89,9 @@ This is rough guide to set up your server and client webpack configs. Follow the
     ```javascript
     const UniversalHotReload = require('universal-hot-reload').default;
    
-    UniversalHotReload(require('path/to/webpack.server.config.js'), require('path/to/webpack.client.config.js'));
+    UniversalHotReload(
+     require('path/to/webpack.server.config.js'), 
+     require('path/to/webpack.client.config.js'));
     ```
 
 4. Lastly in your server entry file:
