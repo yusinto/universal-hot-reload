@@ -8,7 +8,7 @@
     "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js'",
     "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
     "prettier": "prettier --write src/**/*.js example/src/**/*.js",
-    "prep-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
+    "build-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
   },
   "repository": {
     "type": "git",
