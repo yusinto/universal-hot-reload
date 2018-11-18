@@ -11,6 +11,7 @@ Why use this package?
 
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
  * Automatic re-bundle on client code changes using webpack-dev-server.
+ * You can finally get rid of babel register from your server code!
 
 <b>This should be used in development only!</b>
 
@@ -19,12 +20,21 @@ Why use this package?
 yarn add universal-hot-reload -D
 
 ## Quickstart
-1. Setup your server bundle webpack config like below. The important parts are:
-    * Set target to node.
-    * Excluding node_modules from the server bundle by setting externals using webpack-node-externals.
-    * Set libraryTarget to commonjs2 which adds module.exports to the beginning of the bundle, so universal-hot-reload can access your app.
 
-    ```javascript
+In server bootstrap, do this:
+
+```js
+const UniversalHotReload = require('universal-hot-reload').default;
+
+UniversalHotReload(require('path/to/webpack.server.config.js'), require('path/to/webpack.client.config.js'));
+```
+
+## Advanced
+This is rough guide to set up your server and client webpack configs. Follow the lines marked `Important`.
+
+1. Your server webpack config should look like this:
+    
+    ```js
     const path = require('path');
     const nodeExternals = require('webpack-node-externals');
     
@@ -43,8 +53,7 @@ yarn add universal-hot-reload -D
       // other standard webpack config like loaders, plugins, etc...
     };
     ```
-2. Setup your client bundle webpack config like below. Note that in output, publicPath
-must be the full url to the bundle:
+2. Your client webpack config should look like this:
 
     ```javascript
     const path = require('path');
@@ -56,7 +65,7 @@ must be the full url to the bundle:
       entry: './src/client/index',
       output: {
         path: path.resolve('dist'),
-        publicPath: `${webpackServeUrl}/dist/`, // MUST BE FULL PATH with trailing slash!
+        publicPath: `${webpackServeUrl}/dist/`, // Important: must be full path with trailing slash
         filename: 'bundle.js'
       },
       module: {
@@ -73,32 +82,29 @@ must be the full url to the bundle:
       },
     };
     ```
-3. In your server bootstrap, require universal-hot-reload and invoke it, passing it your server and client webpack config objects in that order:
+3. Your server bootstrap:
 
     ```javascript
     const UniversalHotReload = require('universal-hot-reload').default;
    
-    UniversalHotReload(require('path/to/webpack.server.config.js'),
-                       require('path/to/webpack.client.config.js'));
+    UniversalHotReload(require('path/to/webpack.server.config.js'), require('path/to/webpack.client.config.js'));
     ```
 
-4. In your server entry file (as specified in your webpack server config "entry" property):
-    * In your html template for server rendering, the script reference to the client bundle should point to webpackServeUrl/dist/bundle.js.
-    * You must export your express app so universal-hot-reload can access the http.server object
+4. Lastly in your server entry file:
 
     ```javascript
-    import express from 'express';
-    
-    const PORT = 3000;
-    const app = express();
-    app.use('/dist', express.static('dist', {maxAge: '1d'}));
+    import { getDevServerBundleUrl } from 'universal-hot-reload';
+    import webpackClientConfig from 'path/to/webpack.config.client';
 
-    // Important: reference webpack serve url for the client bundle
+    // Important: gets webpack-dev-server url from your client config 
+    const devServerBundleUrl = getDevServerBundleUrl(webpackClientConfig);
+ 
+    // Important: feed the url into script src
     const html = `<!DOCTYPE html>
                 <html>
                   <body>
                     <div id="reactDiv">${reactString}</div>
-                    <script src="http://localhost:3002/dist/bundle.js"></script>
+                    <script src="${devServerBundleUrl}"></script>
                   </body>
                 </html>`;
                 
