@@ -1,4 +1,9 @@
-jest.mock('./index', () => ({ on: global.td.function('httpServer.on') }));
+jest.mock('./index', () => ({
+  __esModule: true,
+  default: {
+    on: global.td.function('httpServer.on'),
+  },
+}));
 
 import td from 'testdouble';
 import mockHttpServer from './index';
