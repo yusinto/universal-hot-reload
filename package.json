@@ -3,10 +3,13 @@
   "version": "2.0.1",
   "description": "Hot reload client and server webpack bundles for the ultimate development experience",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js'",
-    "lint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
+    "build": "rimraf lib/* && babel src -d lib --ignore '**/*.test.js' && cp src/index.d.ts lib/index.d.ts",
+    "eslint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
+    "tslint": "tslint -p tsconfig.json 'src/**/*.ts*'",
+    "lint": "npm run eslint && npm run tslint",
     "prettier": "prettier --write src/**/*.js example/src/**/*.js",
     "build-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
   },
@@ -30,6 +33,7 @@
   },
   "homepage": "https://github.com/yusinto/universal-hot-reload#readme",
   "dependencies": {
+    "@types/webpack": "^4.4.22",
     "webpack": "^4.2.0",
     "webpack-dev-server": "^3.1.1"
   },
@@ -53,6 +57,10 @@
     "jest": "^23.6.0",
     "prettier": "1.15.2",
     "rimraf": "^2.6.2",
-    "testdouble": "^3.6.0"
+    "testdouble": "^3.6.0",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.2.2"
   }
 }
