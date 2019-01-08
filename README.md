@@ -1,6 +1,10 @@
 # universal-hot-reload
 
-[![Circle CI](https://circleci.com/gh/yusinto/universal-hot-reload.svg?style=for-the-badge)](https://circleci.com/gh/yusinto/universal-hot-reload)[![npm version](https://img.shields.io/npm/v/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) [![npm downloads](https://img.shields.io/npm/dm/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) [![npm](https://img.shields.io/npm/dt/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) [![npm](https://img.shields.io/npm/l/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
+[![Circle CI](https://img.shields.io/circleci/project/github/yusinto/universal-hot-reload/master.svg?style=for-the-badge&logo=circleci)](https://circleci.com/gh/yusinto/universal-hot-reload)
+[![npm version](https://img.shields.io/npm/v/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload)
+[![npm downloads](https://img.shields.io/npm/dm/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
+[![npm](https://img.shields.io/npm/dt/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
+[![npm](https://img.shields.io/npm/l/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
 
 > **Hot reload universally bundled webpack apps for the ultimate development experience** :clap:
 
