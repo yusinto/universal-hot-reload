@@ -6,6 +6,6 @@
 
 import { Configuration } from 'webpack';
 
-declare function universalHotReload(serverConfig: Configuration, clientConfig: Configuration): void;
+export function getDevServerBundleUrl(clientConfig: Configuration): string;
 
-export default universalHotReload;
+export default function universalHotReload(serverConfig: Configuration, clientConfig: Configuration): void;
