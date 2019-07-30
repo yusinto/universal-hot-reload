@@ -140,5 +140,5 @@ This is rough guide to set up your server and client webpack configs. Follow the
     ```
 
 ## Example
-Check the [example](https://github.com/yusinto/universal-hot-reload/tree/master/example)
+Check the [example](https://github.com/yusinto/universal-hot-reload/tree/master/examples/js)
 for a fully working spa with react and react-router.

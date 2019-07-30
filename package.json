@@ -10,7 +10,7 @@
     "eslint": "eslint --cache --format 'node_modules/eslint-friendly-formatter' src",
     "tslint": "tslint -p tsconfig.json 'src/**/*.ts*'",
     "lint": "npm run eslint && npm run tslint",
-    "prettier": "prettier --write src/**/*.js example/src/**/*.js",
+    "prettier": "prettier --write src/**/*.js examples/**/src/**/*.js",
     "build-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
   },
   "repository": {
