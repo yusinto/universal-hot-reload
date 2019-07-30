@@ -1,0 +1,56 @@
+{
+  "name": "universal-hot-reload-graphql-nexus-demo",
+  "version": "0.0.1",
+  "description": "Graphql server for LaunchDarkly in Nexus",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -p tsconfig.json -t stylish 'src/**/*.ts*'",
+    "ts": "tsc",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/launchdarkly/ld-nexus.git"
+  },
+  "keywords": [
+    "graphql",
+    "nexus",
+    "gql",
+    "nexus",
+    "apollo",
+    "prisma",
+    "universal-hot-reload",
+    "universal",
+    "hot",
+    "reload",
+    "hmr",
+    "watch",
+    "webpack"
+  ],
+  "author": "Yusinto Ngadiman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/launchdarkly/ld-nexus/issues"
+  },
+  "homepage": "https://github.com/launchdarkly/ld-nexus#readme",
+  "dependencies": {
+    "apollo-server": "2.8.0",
+    "graphql": "14.4.2",
+    "nexus": "^0.12.0-beta.6"
+  },
+  "devDependencies": {
+    "@types/graphql": "14.2.3",
+    "@types/node": "12.6.8",
+    "@types/node-fetch": "^2.5.0",
+    "jest": "24.8.0",
+    "prettier": "^1.18.2",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "3.4.3",
+    "universal-hot-reload": "2.0.3",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
