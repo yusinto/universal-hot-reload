@@ -14,6 +14,10 @@ import { Configuration } from 'webpack';
  */
 export function getDevServerBundleUrl(clientConfig: Configuration): string;
 
+interface UniversalHotReloadConfig {
+  serverConfig?: Configuration;
+  clientConfig?: Configuration;
+}
 /**
  * Call this method with your webpack server and client configs in a ts file and run it to get
  * hot reload.
@@ -21,4 +25,5 @@ export function getDevServerBundleUrl(clientConfig: Configuration): string;
  * @param serverConfig - Your webpack config for the server
  * @param clientConfig - Your webpack config for the client
  */
-export default function universalHotReload({ serverConfig?: Configuration, clientConfig?: Configuration }): void;
+
+export default function universalHotReload({ serverConfig, clientConfig }: UniversalHotReloadConfig): void;
