@@ -12,10 +12,12 @@ If you universally bundle your app using webpack (i.e. you use webpack to bundle
 this package will set up hot reloading for both server and client side.  
 
 Why use this package?
-
+ * Say goodbye to fumbling around with webpack watch/dev-server/hmr config.
  * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
  * Automatic re-bundle on client code changes using webpack-dev-server.
- * You can finally get rid of babel register from your server code!
+ * Get rid of babel register from your server code!
+ * Works with typescript, graphql and nexus.
+ * Now supports hot reloading only server code, only client code and of course both client and server code.
 
 <b>This should be used in development only!</b>
 
@@ -25,14 +27,20 @@ yarn add universal-hot-reload -D
 
 ## Quickstart
 
-In server bootstrap, do this:
+In your server entry file, commonly src/server/index.js, do this:
 
 ```js
 const UniversalHotReload = require('universal-hot-reload').default;
+const serverConfig = require('../../webpack.config.server.js');
+const clientConfig = require('../../webpack.config.client.js');
 
-UniversalHotReload(
-  require('path/to/webpack.server.config.js'), 
-  require('path/to/webpack.client.config.js'));
+UniversalHotReload({ serverConfig, clientConfig });
+```
+
+Then run your app:
+
+```json
+node src/server/index.js
 ```
 
 ## Advanced
@@ -92,10 +100,12 @@ This is rough guide to set up your server and client webpack configs. Follow the
 
     ```javascript
     const UniversalHotReload = require('universal-hot-reload').default;
-   
-    UniversalHotReload(
-     require('path/to/webpack.server.config.js'), 
-     require('path/to/webpack.client.config.js'));
+
+    // You can provide only a server or a client config or both. 
+    const serverConfig = require('../../webpack.config.server.js');
+    const clientConfig = require('../../webpack.config.client.js');
+ 
+    UniversalHotReload({ serverConfig, clientConfig });
     ```
 
 4. Lastly in your server entry file:

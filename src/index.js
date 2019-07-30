@@ -49,6 +49,7 @@ export const watchServerChanges = serverConfig => {
       });
 
       // Destroy all open sockets
+      // eslint-disable-next-line no-restricted-syntax
       for (const socket of httpServerInitObject.sockets.values()) {
         socket.destroy();
       }
@@ -111,12 +112,16 @@ export const watchClientChanges = clientConfig => {
   });
 };
 
-const main = (serverConfig, clientConfig) => {
-  // Start webpack dev server separately on a different port to avoid issues with httpServer restarts
-  watchClientChanges(clientConfig);
+const main = ({ serverConfig, clientConfig }) => {
+  if (clientConfig) {
+    // Start webpack dev server separately on a different port to avoid issues with httpServer restarts
+    watchClientChanges(clientConfig);
+  }
 
-  // Watch changes on the server side, re-compile and restart.
-  watchServerChanges(serverConfig);
+  if (serverConfig) {
+    // Watch changes on the server side, re-compile and restart.
+    watchServerChanges(serverConfig);
+  }
 };
 
 export default main;

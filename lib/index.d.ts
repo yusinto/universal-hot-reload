@@ -21,4 +21,4 @@ export function getDevServerBundleUrl(clientConfig: Configuration): string;
  * @param serverConfig - Your webpack config for the server
  * @param clientConfig - Your webpack config for the client
  */
-export default function universalHotReload(serverConfig: Configuration, clientConfig: Configuration): void;
+export default function universalHotReload({ serverConfig?: Configuration, clientConfig?: Configuration }): void;

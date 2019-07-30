@@ -15,7 +15,7 @@
   "exclude": [
     "node_modules",
     "lib",
-    "example",
+    "examples/example",
     "test"
   ]
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import App from '../universal/app';
-import { getDevServerBundleUrl } from '../../../lib';
+import { getDevServerBundleUrl } from '../../../../lib';
 import webpackClientConfig from '../../webpack.config.client';
 
 const PORT = 3000;

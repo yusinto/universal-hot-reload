@@ -13,6 +13,7 @@
     "prettier"
   ],
   "rules": {
+    "no-plusplus": 0,
     "prettier/prettier": "error",
     "arrow-parens": 0,
     "eol-last": 0,

@@ -9,7 +9,7 @@ import clearRequireCache from './clearRequireCache';
 import { getDevServerBundleUrl, watchServerChanges, watchClientChanges } from './index';
 import initHttpServer from './initHttpServer';
 
-let clientConfig = {
+const clientConfig = {
   entry: './app-entry.js',
   output: {
     publicPath: 'http://localhost:8001/dist/',
@@ -137,7 +137,7 @@ describe('index.js', () => {
       let mockSocket;
 
       beforeEach(() => {
-        watchCallback = mockServerCompiler.watch.mock.calls[0][1];
+        [[, watchCallback]] = mockServerCompiler.watch.mock.calls;
         mockSocket = {
           destroy: jest.fn(),
         };
