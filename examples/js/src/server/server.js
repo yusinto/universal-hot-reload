@@ -2,8 +2,8 @@ import Express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { getDevServerBundleUrl } from 'universal-hot-reload';
 import App from '../universal/app';
-import { getDevServerBundleUrl } from '../../../../lib';
 import webpackClientConfig from '../../webpack.config.client';
 
 const PORT = 3000;
