@@ -11,7 +11,7 @@
     "tslint": "tslint -p tsconfig.json 'src/**/*.ts*'",
     "lint": "npm run eslint && npm run tslint",
     "prettier": "prettier --write src/**/*.js examples/**/src/**/*.js",
-    "build-publish": "npm run build && npm version patch -m 'Upgrade to %s' && npm publish && git push"
+    "build-publish": "npm run build && npm version minor -m 'Upgrade to %s' && npm publish && git push"
   },
   "repository": {
     "type": "git",
