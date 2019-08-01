@@ -12,6 +12,9 @@ const defaultServerConfig = (serverEntryPath = './src/server.js') => ({
     filename: 'serverBundle.js',
     libraryTarget: 'commonjs2',
   },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
