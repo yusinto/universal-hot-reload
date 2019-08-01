@@ -2,6 +2,7 @@ import { join } from 'path';
 import webpack from 'webpack';
 import clearRequireCache from '../utils/clearRequireCache';
 import initHttpServer from './initHttpServer';
+import generateDefaultConfig from './generateDefaultConfig';
 
 /**
  * Watches server for changes, recompile and restart express
@@ -56,6 +57,11 @@ const watchServerChanges = serverConfig => {
       }
     }
   });
+};
+
+export const watchServerChangesWithDefaultConfig = serverEntryPath => {
+  const defaultConfig = generateDefaultConfig(serverEntryPath);
+  watchServerChanges(defaultConfig);
 };
 
 export default watchServerChanges;

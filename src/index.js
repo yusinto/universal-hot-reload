@@ -1,5 +1,5 @@
 import watchClientChanges from './client/watchClientChanges';
-import watchServerChanges from './server/watchServerChanges';
+import watchServerChanges, { watchServerChangesWithDefaultConfig } from './server/watchServerChanges';
 import getDevServerUrl from './utils/getDevServerBundleUrl';
 
 export const getDevServerBundleUrl = getDevServerUrl;
@@ -14,6 +14,10 @@ const main = ({ serverConfig, clientConfig }) => {
     // Watch changes on the server side, re-compile and restart.
     watchServerChanges(serverConfig);
   }
+};
+
+export const serverHotReload = serverEntryPath => {
+  watchServerChangesWithDefaultConfig(serverEntryPath);
 };
 
 export default main;

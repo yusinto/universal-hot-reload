@@ -14,6 +14,15 @@ import { Configuration } from 'webpack';
  */
 export function getDevServerBundleUrl(clientConfig: Configuration): string;
 
+/**
+ * Use this if you only have server code and don't want to mess around with webpack config.
+ * This uses an internal default webpack config to bundle your server code and watch it.
+ * Works best for graphql servers or node servers without ssr.
+ *
+ * @param serverEntryPath - this is the path to your server file where you start your server i.e. app.listen
+ */
+export function serverHotReload(serverEntryPath: string): void;
+
 interface UniversalHotReloadConfig {
   serverConfig?: Configuration;
   clientConfig?: Configuration;
