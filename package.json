@@ -1,6 +1,6 @@
 {
   "name": "universal-hot-reload",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Hot reload client and server webpack bundles for the ultimate development experience",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
