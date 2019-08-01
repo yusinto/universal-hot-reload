@@ -4,7 +4,7 @@ import nodeExternals from 'webpack-node-externals';
 const defaultServerConfig = (serverEntryPath = './src/server.js') => ({
   mode: 'development',
   devtool: 'source-map',
-  entry: path.resolve(serverEntryPath),
+  entry: serverEntryPath,
   target: 'node',
   externals: [nodeExternals()],
   output: {

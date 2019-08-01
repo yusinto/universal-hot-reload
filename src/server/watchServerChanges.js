@@ -13,6 +13,28 @@ const watchServerChanges = serverConfig => {
 
   const bundlePath = join(serverConfig.output.path, serverConfig.output.filename);
   const serverCompiler = webpack(serverConfig);
+
+  // use this to debug
+  // const serverCompiler = webpack(serverConfig, (err, stats) => {
+  //   if (err || stats.hasErrors()) {
+  //     if (err) {
+  //       console.error(err.stack || err);
+  //       if (err.details) {
+  //         console.error(err.details);
+  //       }
+  //       return;
+  //     }
+  //     const info = stats.toJson();
+  //     if (stats.hasErrors()) {
+  //       console.error(info.errors);
+  //     }
+  //
+  //     if (stats.hasWarnings()) {
+  //       console.warn(info.warnings);
+  //     }
+  //   }
+  // });
+
   const compilerOptions = {
     aggregateTimeout: 300, // wait so long for more changes
     poll: true, // use polling instead of native watchers
