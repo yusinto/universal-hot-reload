@@ -6,18 +6,12 @@
 [![npm](https://img.shields.io/npm/dt/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
 [![npm](https://img.shields.io/npm/l/universal-hot-reload.svg?style=for-the-badge)](https://www.npmjs.com/package/universal-hot-reload) 
 
-> **Hot reload universally bundled webpack apps for the ultimate development experience** :clap:
+> **Easily hot reload your server, client or universal apps** :clap:
 
-If you universally bundle your app using webpack (i.e. you use webpack to bundle your server <b>AND</b> client side code) 
-this package will set up hot reloading for both server and client side.  
-
-Why use this package?
- * Say goodbye to fumbling around with webpack watch/dev-server/hmr config.
- * Automatic re-bundle on server code changes so server side rendering always reflect the latest changes.
- * Automatic re-bundle on client code changes using webpack-dev-server.
- * Get rid of babel register from your server code!
- * Works with typescript, graphql and nexus.
- * Now supports hot reloading only server code, only client code and of course both client and server code.
+Why this package?
+ * Setup hot reload for your app in four lines of code or less.
+ * Supports server, client and universal hot reloads!
+ * Works with react, typescript, graphql and nexus.
 
 <b>This should be used in development only!</b>
 
@@ -25,26 +19,63 @@ Why use this package?
 
 yarn add universal-hot-reload -D
 
-## Quickstart
+## Quickstart: server only
+To hot reload graphql servers and express servers without ssr, 
+create index.js and server.js like below. For graphql, only `express-graphql` 
+and `apollo-server` are supported for now.
 
-In your server entry file, commonly src/server/index.js, do this:
+#### index.js
+
+```js
+const { serverHotReload } = require('universal-hot-reload');
+
+// server.js is where you export your http.server instance (see below) 
+serverHotReload(require.resolve('./server.js'));
+```
+
+#### server.js
+```js
+// You'll need to export default an instance of http.server so universal-hot-reload
+// can restart your server when changes are detected.
+
+// For express or express-graphql
+export default app.listen(PORT, () => console.log(`Listening at ${PORT}`));
+
+// For apollo-server
+const server = new ApolloServer({ typeDefs, resolvers });
+server.listen().then(() => console.log(`Listening at ${PORT}`));
+export default server.httpServer;
+```
+
+Run your app:
+```bash
+node index.js
+```
+
+### Quickstart: universal apps
+To hot reload a universal app, create index.js like below and follow the same 
+steps as [Quickstart: server only](#quickstart-server-only).
+ 
+#### index.js
 
 ```js
 const UniversalHotReload = require('universal-hot-reload').default;
-const serverConfig = require('../../webpack.config.server.js');
-const clientConfig = require('../../webpack.config.client.js');
 
+// supply your own webpack configs
+const serverConfig = require('../webpack.config.server.js');
+const clientConfig = require('../webpack.config.client.js');
+
+// the configs are optional, you can supply either one or both.
+// if you omit a config, then your app won't hot reload.
 UniversalHotReload({ serverConfig, clientConfig });
 ```
 
-Then run your app:
-
-```json
-node src/server/index.js
-```
-
 ## Advanced
-This is rough guide to set up your server and client webpack configs. Follow the lines marked `Important`.
+If you use the `serverHotReload` function then you won't need to supply your own server webpack config. `universal-hot-reload`
+uses a default server webpack config so you don't have to supply your own.
+
+If you want to use your own custom server webpack config or if you want to hot reload your universal app,
+then you'll need to supply your own webpack configs. Follow the lines marked `Important`.
 
 1. Your server webpack config should look like this:
     
@@ -64,7 +95,7 @@ This is rough guide to set up your server and client webpack configs. Follow the
         libraryTarget: 'commonjs2' // Important
       },
 
-      // other standard webpack config like loaders, plugins, etc...
+      // other webpack config
     };
     ```
 2. Your client webpack config should look like this:
@@ -96,14 +127,14 @@ This is rough guide to set up your server and client webpack configs. Follow the
       },
     };
     ```
-3. Your server bootstrap:
+3. Your `index.js`:
 
     ```javascript
     const UniversalHotReload = require('universal-hot-reload').default;
 
     // You can provide only a server or a client config or both. 
-    const serverConfig = require('../../webpack.config.server.js');
-    const clientConfig = require('../../webpack.config.client.js');
+    const serverConfig = require('../webpack.config.server.js');
+    const clientConfig = require('../webpack.config.client.js');
  
     UniversalHotReload({ serverConfig, clientConfig });
     ```
@@ -136,9 +167,13 @@ This is rough guide to set up your server and client webpack configs. Follow the
 5. Run your app!
     
     ```javascript
-    node src/server/index.js
+    node index.js
     ```
 
-## Example
-Check the [example](https://github.com/yusinto/universal-hot-reload/tree/master/examples/js)
+## Examples
+For graphql, check this [example](https://github.com/yusinto/universal-hot-reload/tree/master/examples/ts) with nexus, 
+apollo server and typescript. Only `express-graphql` and `apollo-server` are supported right now. `graphql-yoga`
+does not expose its `http.server` instance and so it's not hot-reloadable this way for now.
+
+For universal webpack apps, check the react [example](https://github.com/yusinto/universal-hot-reload/tree/master/examples/js)
 for a fully working spa with react and react-router.
