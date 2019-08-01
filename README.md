@@ -66,7 +66,7 @@ const serverConfig = require('../webpack.config.server.js');
 const clientConfig = require('../webpack.config.client.js');
 
 // the configs are optional, you can supply either one or both.
-// if you omit a config, then your app won't hot reload.
+// if you omit say the server config, then your server won't hot reload.
 UniversalHotReload({ serverConfig, clientConfig });
 ```
 
@@ -94,7 +94,6 @@ then you'll need to supply your own webpack configs. Follow the lines marked `Im
         filename: 'serverBundle.js',
         libraryTarget: 'commonjs2' // Important
       },
-
       // other webpack config
     };
     ```
@@ -113,21 +112,10 @@ then you'll need to supply your own webpack configs. Follow the lines marked `Im
         publicPath: `${webpackServeUrl}/dist/`, // Important: must be full path with trailing slash
         filename: 'bundle.js'
       },
-      module: {
-        rules: [
-          {
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            include: path.resolve('src'),
-            exclude: /node_modules/,
-            options: {
-              cacheDirectory: true,
-            }
-          }]
-      },
+      // other webpack config
     };
     ```
-3. Your `index.js`:
+3. Create an `index.js` file:
 
     ```javascript
     const UniversalHotReload = require('universal-hot-reload').default;
@@ -136,6 +124,7 @@ then you'll need to supply your own webpack configs. Follow the lines marked `Im
     const serverConfig = require('../webpack.config.server.js');
     const clientConfig = require('../webpack.config.client.js');
  
+    // Omitting a config means that side of your app won't hot reload.
     UniversalHotReload({ serverConfig, clientConfig });
     ```
 
