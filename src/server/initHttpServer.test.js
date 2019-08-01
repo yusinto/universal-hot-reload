@@ -1,4 +1,4 @@
-jest.mock('./index', () => ({
+jest.mock('./mockServer', () => ({
   __esModule: true,
   default: {
     on: global.td.function('httpServer.on'),
@@ -6,7 +6,7 @@ jest.mock('./index', () => ({
 }));
 
 import td from 'testdouble';
-import mockHttpServer from './index';
+import mockServer from './mockServer';
 
 let mockSocket1;
 let mockSocket2;
@@ -26,7 +26,7 @@ describe('initHttpServer', () => {
     mockSocket2 = {
       on: td.function('socket2.on'),
     };
-    td.when(mockHttpServer.on('connection', td.matchers.isA(Function))).thenDo((s, f) => {
+    td.when(mockServer.on('connection', td.matchers.isA(Function))).thenDo((s, f) => {
       onConnectionHandler = f;
     });
 
@@ -38,14 +38,14 @@ describe('initHttpServer', () => {
   });
 
   test('should return an object containing http.Server and a map of socket references', () => {
-    const result = initHttpServer('./index');
+    const result = initHttpServer('./mockServer');
 
-    expect(result.httpServer).toEqual(mockHttpServer);
+    expect(result.httpServer).toEqual(mockServer);
     expect(result.sockets).not.toBeNull();
   });
 
   it('should add socket references on connection', () => {
-    const result = initHttpServer('./index');
+    const result = initHttpServer('./mockServer');
     onConnectionHandler(mockSocket1);
     onConnectionHandler(mockSocket2);
     console.log(`sockets0 = ${JSON.stringify(result.sockets.get(0))}`);
@@ -58,7 +58,7 @@ describe('initHttpServer', () => {
   });
 
   it('should remove socket references on close', () => {
-    const result = initHttpServer('./index');
+    const result = initHttpServer('./mockServer');
     onConnectionHandler(mockSocket1);
     onConnectionHandler(mockSocket2);
     onSocket1Close();

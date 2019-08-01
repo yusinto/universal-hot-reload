@@ -1,13 +1,15 @@
 jest.mock('webpack', () => jest.fn());
 jest.mock('webpack-dev-server', () => jest.fn());
-jest.mock('./clearRequireCache', () => jest.fn());
-jest.mock('./initHttpServer', () => jest.fn());
+jest.mock('./utils/clearRequireCache', () => jest.fn());
+jest.mock('./server/initHttpServer', () => jest.fn());
 
 import webpack from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
-import clearRequireCache from './clearRequireCache';
-import { getDevServerBundleUrl, watchServerChanges, watchClientChanges } from './index';
-import initHttpServer from './initHttpServer';
+import clearRequireCache from './utils/clearRequireCache';
+import initHttpServer from './server/initHttpServer';
+import watchClientChanges from './client/watchClientChanges';
+import watchServerChanges from './server/watchServerChanges';
+import getDevServerBundleUrl from './utils/getDevServerBundleUrl';
 
 const clientConfig = {
   entry: './app-entry.js',
