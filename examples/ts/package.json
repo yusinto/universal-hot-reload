@@ -44,13 +44,11 @@
     "@types/node-fetch": "^2.5.0",
     "jest": "24.8.0",
     "prettier": "^1.18.2",
-    "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "2.0.1",
     "typescript": "3.4.3",
-    "universal-hot-reload": "file:../../lib",
-    "webpack-node-externals": "^1.7.2"
+    "universal-hot-reload": "file:../../lib"
   }
 }
