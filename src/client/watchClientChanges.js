@@ -39,6 +39,7 @@ const watchClientChanges = clientConfig => {
       'Access-Control-Allow-Origin': '*',
     },
     hot: true,
+    sockPort: port,
   };
 
   const server = new webpackDevServer(compiler, devServerOptions);
