@@ -89,6 +89,7 @@ describe('index.js', () => {
       expect(webpackDevServer).toBeCalledTimes(1);
       expect(options).toEqual({
         quiet: false,
+        sockPort: '8001',
         noInfo: false,
         lazy: false,
         publicPath: 'http://localhost:8001/dist/',
