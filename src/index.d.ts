@@ -5,6 +5,7 @@
 // TypeScript Version: 3.2.2
 
 import { Configuration } from 'webpack';
+import { Server } from 'net';
 
 /**
  * Gets the full webpack dev server url from the supplied client webpack config.
@@ -27,6 +28,11 @@ interface UniversalHotReloadConfig {
   serverConfig?: Configuration;
   clientConfig?: Configuration;
 }
+
+interface UniversalHotReloadHandles {
+  server?: Promise<Server>;
+  client?: Promise<Server>;
+}
 /**
  * Call this method with your webpack server and client configs in a ts file and run it to get
  * hot reload.
@@ -35,4 +41,4 @@ interface UniversalHotReloadConfig {
  * @param clientConfig - Your webpack config for the client
  */
 
-export default function universalHotReload({ serverConfig, clientConfig }: UniversalHotReloadConfig): void;
+export default function universalHotReload({ serverConfig, clientConfig }: UniversalHotReloadConfig): UniversalHotReloadHandles;
