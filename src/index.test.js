@@ -118,7 +118,7 @@ describe('index.js', () => {
       expect(returnValue).toBeTruthy();
       expect(returnValue.host).toEqual('localhost');
       expect(returnValue.port).toEqual('8001');
-    })
+    });
   });
 
   describe('server', () => {
@@ -133,13 +133,13 @@ describe('index.js', () => {
 
     describe('compiler', () => {
       beforeEach(() => {
-        watchServerChanges(serverConfig)
+        watchServerChanges(serverConfig);
       });
 
       test('compiler gets created', () => {
         expect(webpack.mock.calls[0][0]).toEqual(serverConfig);
       });
-  
+
       test('watch options are correct', () => {
         expect(mockServerCompiler.watch.mock.calls[0][0]).toEqual({
           aggregateTimeout: 300,
@@ -170,8 +170,8 @@ describe('index.js', () => {
         };
         initHttpServer.mockImplementation(() => mockServerInitObject);
         promiseHandler = jest.fn();
-        watchServerChanges(serverConfig).then((server) => {
-          promiseHandler(server)
+        watchServerChanges(serverConfig).then(server => {
+          promiseHandler(server);
         });
         [[, watchCallback]] = mockServerCompiler.watch.mock.calls;
       });
@@ -199,13 +199,13 @@ describe('index.js', () => {
         expect(mockSocket.destroy).toBeCalledTimes(1);
       });
 
-      test('the promise returned by watchServerChanges eventually resolves to a server', (done) => {
-        promiseHandler.mockImplementation((server) => {
-          expect(server).toBeTruthy()
-          expect(server.host).toEqual('localhost')
-          expect(server.port).toEqual('8001')
+      test('the promise returned by watchServerChanges eventually resolves to a server', done => {
+        promiseHandler.mockImplementation(server => {
+          expect(server).toBeTruthy();
+          expect(server.host).toEqual('localhost');
+          expect(server.port).toEqual('8001');
           done();
-        })
+        });
         watchCallback();
       });
     });

@@ -41,4 +41,7 @@ interface UniversalHotReloadHandles {
  * @param clientConfig - Your webpack config for the client
  */
 
-export default function universalHotReload({ serverConfig, clientConfig }: UniversalHotReloadConfig): UniversalHotReloadHandles;
+export default function universalHotReload({
+  serverConfig,
+  clientConfig,
+}: UniversalHotReloadConfig): UniversalHotReloadHandles;
