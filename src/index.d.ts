@@ -31,7 +31,7 @@ interface UniversalHotReloadConfig {
 
 interface UniversalHotReloadHandles {
   server?: Promise<Server>;
-  client?: Promise<Server>;
+  client?: Server;
 }
 /**
  * Call this method with your webpack server and client configs in a ts file and run it to get
