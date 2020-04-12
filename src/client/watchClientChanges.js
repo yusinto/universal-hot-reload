@@ -40,6 +40,7 @@ const watchClientChanges = clientConfig => {
     },
     hot: true,
     sockPort: port,
+    ...clientConfig.devServer,
   };
 
   const server = new webpackDevServer(compiler, devServerOptions);
