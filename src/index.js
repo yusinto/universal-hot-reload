@@ -4,10 +4,10 @@ import getDevServerUrl from './utils/getDevServerBundleUrl';
 
 export const getDevServerBundleUrl = getDevServerUrl;
 
-const main = ({ serverConfig, clientConfig }) => {
+const main = ({ serverConfig, clientConfig, devServerOptions }) => {
   if (clientConfig) {
     // Start webpack dev server separately on a different port to avoid issues with httpServer restarts
-    watchClientChanges(clientConfig);
+    watchClientChanges(clientConfig, devServerOptions);
   }
 
   if (serverConfig) {

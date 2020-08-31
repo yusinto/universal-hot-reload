@@ -5,7 +5,7 @@ import webpackDevServer from 'webpack-dev-server';
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = clientConfig => {
+const watchClientChanges = (clientConfig, devServerOverrides) => {
   const { publicPath } = clientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
@@ -30,8 +30,6 @@ const watchClientChanges = clientConfig => {
 
   const compiler = webpack(clientConfig);
   const devServerOptions = {
-    quiet: false, // don’t output anything to the console.
-    noInfo: false, // suppress boring information
     lazy: false, // no watching, compiles on request
     publicPath,
     stats: 'errors-only',
@@ -40,6 +38,7 @@ const watchClientChanges = clientConfig => {
     },
     hot: true,
     sockPort: port,
+    ...devServerOverrides,
   };
 
   const server = new webpackDevServer(compiler, devServerOptions);

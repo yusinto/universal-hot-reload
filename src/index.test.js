@@ -88,9 +88,7 @@ describe('index.js', () => {
 
       expect(webpackDevServer).toBeCalledTimes(1);
       expect(options).toEqual({
-        quiet: false,
         sockPort: '8001',
-        noInfo: false,
         lazy: false,
         publicPath: 'http://localhost:8001/dist/',
         stats: 'errors-only',
@@ -98,6 +96,31 @@ describe('index.js', () => {
           'Access-Control-Allow-Origin': '*',
         },
         hot: true,
+      });
+    });
+
+    test('webpack-dev-server constructed with additional options', () => {
+      watchClientChanges(
+        { ...clientConfig },
+        {
+          stats: 'verbose',
+          historyApiFallback: true,
+        },
+      );
+
+      const options = webpackDevServer.mock.calls[0][1];
+
+      expect(webpackDevServer).toBeCalledTimes(1);
+      expect(options).toEqual({
+        sockPort: '8001',
+        lazy: false,
+        publicPath: 'http://localhost:8001/dist/',
+        stats: 'verbose',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        hot: true,
+        historyApiFallback: true,
       });
     });
 
