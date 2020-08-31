@@ -1,6 +1,6 @@
 import { join } from 'path';
 import webpack from 'webpack';
-import clearRequireCache from '../utils/clearRequireCache';
+import clearRequireCache from 'clear-require';
 import initHttpServer from './initHttpServer';
 import generateDefaultConfig from './generateDefaultConfig';
 
