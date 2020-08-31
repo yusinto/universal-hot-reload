@@ -5,7 +5,7 @@ import webpackDevServer from 'webpack-dev-server';
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = (clientConfig, devServerOverrides) => {
+const watchClientChanges = (clientConfig, devServerOverrides, verbose) => {
   const { publicPath } = clientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
@@ -45,7 +45,7 @@ const watchClientChanges = (clientConfig, devServerOverrides) => {
 
   const server = new webpackDevServer(compiler, devServerOptions);
   server.listen(port, 'localhost', () => {
-    console.log(`Starting webpack-dev-server on ${webpackDevServerUrl}`);
+    if (verbose) console.log(`Starting webpack-dev-server on ${webpackDevServerUrl}`);
   });
 };
 

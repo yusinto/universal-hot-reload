@@ -4,20 +4,20 @@ import getDevServerUrl from './utils/getDevServerBundleUrl';
 
 export const getDevServerBundleUrl = getDevServerUrl;
 
-const main = ({ serverConfig, clientConfig, devServerOptions }) => {
+const main = ({ serverConfig, clientConfig, devServerOptions = {}, verbose = true }) => {
   if (clientConfig) {
     // Start webpack dev server separately on a different port to avoid issues with httpServer restarts
-    watchClientChanges(clientConfig, devServerOptions);
+    watchClientChanges(clientConfig, devServerOptions, verbose);
   }
 
   if (serverConfig) {
     // Watch changes on the server side, re-compile and restart.
-    watchServerChanges(serverConfig);
+    watchServerChanges(serverConfig, verbose);
   }
 };
 
-export const serverHotReload = serverEntryPath => {
-  watchServerChangesWithDefaultConfig(serverEntryPath);
+export const serverHotReload = (serverEntryPath, verbose = true) => {
+  watchServerChangesWithDefaultConfig(serverEntryPath, verbose);
 };
 
 export default main;
