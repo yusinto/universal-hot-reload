@@ -30,6 +30,8 @@ const watchClientChanges = (clientConfig, devServerOverrides) => {
 
   const compiler = webpack(clientConfig);
   const devServerOptions = {
+    quiet: true, // don’t output anything to the console.
+    noInfo: true, // suppress boring information
     lazy: false, // no watching, compiles on request
     publicPath,
     stats: 'errors-only',
