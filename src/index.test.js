@@ -1,11 +1,11 @@
 jest.mock('webpack', () => jest.fn());
 jest.mock('webpack-dev-server', () => jest.fn());
-jest.mock('./utils/clearRequireCache', () => jest.fn());
+jest.mock('clear-require', () => jest.fn());
 jest.mock('./server/initHttpServer', () => jest.fn());
 
 import webpack from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
-import clearRequireCache from './utils/clearRequireCache';
+import clearRequireCache from 'clear-require';
 import initHttpServer from './server/initHttpServer';
 import watchClientChanges from './client/watchClientChanges';
 import watchServerChanges from './server/watchServerChanges';
