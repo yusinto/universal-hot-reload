@@ -1,4 +1,4 @@
-const getDevServerBundleUrl = clientConfig => {
+const getDevServerBundleUrl = (clientConfig) => {
   const {
     output: { publicPath, filename },
   } = clientConfig;
