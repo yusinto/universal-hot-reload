@@ -46,6 +46,7 @@ const watchClientChanges = clientConfig => {
   server.listen(port, 'localhost', () => {
     console.log(`Starting webpack-dev-server on ${webpackDevServerUrl}`);
   });
+  return server;
 };
 
 export default watchClientChanges;
