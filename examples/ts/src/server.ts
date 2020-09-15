@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server'
-import { queryType, stringArg, makeSchema } from 'nexus'
+import { queryType, stringArg, makeSchema } from '@nexus/schema'
 import path from 'path'
 
 const PORT = 4000
