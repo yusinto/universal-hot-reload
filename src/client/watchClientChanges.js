@@ -5,12 +5,13 @@ import webpackDevServer from 'webpack-dev-server';
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = (clientConfig, devServerOverrides, verbose) => {
+const watchClientChanges = (clientConfig) => {
+  const { entry, plugins, devServer = {} } = clientConfig;
+
   const { publicPath } = clientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
 
-  const { entry, plugins } = clientConfig;
   const hmrEntries = [
     `${require.resolve('webpack-dev-server/client/')}?${webpackDevServerUrl}`,
     require.resolve('webpack/hot/dev-server'),
@@ -40,12 +41,12 @@ const watchClientChanges = (clientConfig, devServerOverrides, verbose) => {
     },
     hot: true,
     sockPort: port,
-    ...devServerOverrides,
+    ...devServer, // Add any overrides here
   };
 
   const server = new webpackDevServer(compiler, devServerOptions);
   server.listen(port, 'localhost', () => {
-    if (verbose) console.log(`Starting webpack-dev-server on ${webpackDevServerUrl}`);
+    console.log(`Starting webpack-dev-server on ${webpackDevServerUrl}`);
   });
 };
 

@@ -7,7 +7,7 @@ import generateDefaultConfig from './generateDefaultConfig';
 /**
  * Watches server for changes, recompile and restart express
  */
-const watchServerChanges = (serverConfig, verbose) => {
+const watchServerChanges = (serverConfig) => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
@@ -55,7 +55,7 @@ const watchServerChanges = (serverConfig, verbose) => {
 
         if (httpServerInitObject) {
           initialLoad = false;
-          if (verbose) console.log(`Server bundled & restarted ${new Date()}`);
+          console.log(`Server bundled & restarted ${new Date()}`);
         } else {
           // server bundling error has occurred
           initialLoad = true;
@@ -72,7 +72,7 @@ const watchServerChanges = (serverConfig, verbose) => {
 
       if (httpServerInitObject) {
         initialLoad = false;
-        if (verbose) console.log('Server bundled successfully');
+        console.log('Server bundled successfully');
       } else {
         // server bundling error has occurred
         initialLoad = true;
@@ -81,9 +81,9 @@ const watchServerChanges = (serverConfig, verbose) => {
   });
 };
 
-export const watchServerChangesWithDefaultConfig = (serverEntryPath, verbose) => {
+export const watchServerChangesWithDefaultConfig = (serverEntryPath) => {
   const defaultConfig = generateDefaultConfig(serverEntryPath);
-  watchServerChanges(defaultConfig, verbose);
+  watchServerChanges(defaultConfig);
 };
 
 export default watchServerChanges;

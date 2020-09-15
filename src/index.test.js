@@ -55,11 +55,11 @@ describe('index.js', () => {
     });
 
     test('hmr entries and plugin are added to client config', () => {
-      watchClientChanges({ ...clientConfig });
+      watchClientChanges(clientConfig);
 
       const { entry, output, plugins } = webpack.mock.calls[0][0];
       expect(entry.length).toEqual(3);
-      expect(entry[0]).toEqual(clientConfig.entry);
+      expect(entry).toEqual(clientConfig.entry);
       expect(entry[1]).toEqual(expect.stringContaining('webpack-dev-server/client/index.js?http://localhost:8001'));
       expect(entry[2]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
       expect(output).toEqual(clientConfig.output);
@@ -67,7 +67,11 @@ describe('index.js', () => {
     });
 
     test('hmr entries and plugin are appended to client config', () => {
-      const clientConfigClone = { ...clientConfig, entry: ['./app1.js', './app2.js'], plugins: ['some-other-plugin'] };
+      const clientConfigClone = {
+        ...clientConfig,
+        entry: ['./app1.js', './app2.js'],
+        plugins: ['some-other-plugin'],
+      };
 
       watchClientChanges(clientConfigClone);
 
@@ -82,7 +86,7 @@ describe('index.js', () => {
     });
 
     test('webpack-dev-server constructed with correct options', () => {
-      watchClientChanges({ ...clientConfig });
+      watchClientChanges(clientConfig);
 
       const options = webpackDevServer.mock.calls[0][1];
 
@@ -102,13 +106,15 @@ describe('index.js', () => {
     });
 
     test('webpack-dev-server constructed with additional options', () => {
-      watchClientChanges(
-        { ...clientConfig },
-        {
+      const clientConfigClone = {
+        ...clientConfig,
+        devServer: {
           stats: 'verbose',
           historyApiFallback: true,
         },
-      );
+      };
+
+      watchClientChanges(clientConfigClone);
 
       const options = webpackDevServer.mock.calls[0][1];
 
@@ -129,7 +135,7 @@ describe('index.js', () => {
     });
 
     test('listen gets called with the right port', () => {
-      watchClientChanges({ ...clientConfig });
+      watchClientChanges(clientConfig);
 
       const listenCall = wdsMockInstance.listen.mock.calls[0];
       expect(wdsMockInstance.listen).toBeCalledTimes(1);
