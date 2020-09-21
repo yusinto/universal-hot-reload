@@ -6,9 +6,10 @@ import webpackDevServer from 'webpack-dev-server';
  * Start webpack dev server for hmr
  */
 const watchClientChanges = (clientConfig) => {
-  const { entry, plugins, devServer = {} } = clientConfig;
+  const clonedClientConfig = { ...clientConfig };
+  const { entry, plugins, devServer = {} } = clonedClientConfig;
 
-  const { publicPath } = clientConfig.output;
+  const { publicPath } = clonedClientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
 
@@ -17,19 +18,21 @@ const watchClientChanges = (clientConfig) => {
     require.resolve('webpack/hot/dev-server'),
   ];
   if (entry.push) {
-    clientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
+    console.log(`entry push`);
+    clonedClientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
   } else {
-    clientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line
+    console.log(`entry no push`);
+    clonedClientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line
   }
 
   const hmrPlugin = new webpack.HotModuleReplacementPlugin();
   if (!plugins) {
-    clientConfig.plugins = [hmrPlugin]; // eslint-disable-line
+    clonedClientConfig.plugins = [hmrPlugin]; // eslint-disable-line
   } else {
     plugins.push(hmrPlugin);
   }
 
-  const compiler = webpack(clientConfig);
+  const compiler = webpack(clonedClientConfig);
   const devServerOptions = {
     quiet: true, // don’t output anything to the console.
     noInfo: true, // suppress boring information

@@ -59,7 +59,7 @@ describe('index.js', () => {
 
       const { entry, output, plugins } = webpack.mock.calls[0][0];
       expect(entry.length).toEqual(3);
-      expect(entry).toEqual(clientConfig.entry);
+      expect(entry[0]).toEqual(clientConfig.entry);
       expect(entry[1]).toEqual(expect.stringContaining('webpack-dev-server/client/index.js?http://localhost:8001'));
       expect(entry[2]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
       expect(output).toEqual(clientConfig.output);
