@@ -5,7 +5,7 @@
  * @param serverBundlePath Path to the server bundle file where the express server was started by calling .listen().
  * @returns {{httpServer: *, sockets: Map}} when server bundle has no errors. Returns null when server bundle contains errors.
  */
-const initHttpServer = serverBundlePath => {
+const initHttpServer = (serverBundlePath) => {
   let httpServer;
 
   try {
@@ -20,7 +20,7 @@ const initHttpServer = serverBundlePath => {
 
   // Inspired by Golo Roden's answer in:
   // http://stackoverflow.com/questions/14626636/how-do-i-shutdown-a-node-js-https-server-immediately
-  httpServer.on('connection', socket => {
+  httpServer.on('connection', (socket) => {
     const socketId = nextSocketId++;
     sockets.set(socketId, socket);
 

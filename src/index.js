@@ -16,7 +16,7 @@ const main = ({ serverConfig, clientConfig }) => {
   }
 };
 
-export const serverHotReload = serverEntryPath => {
+export const serverHotReload = (serverEntryPath) => {
   watchServerChangesWithDefaultConfig(serverEntryPath);
 };
 
