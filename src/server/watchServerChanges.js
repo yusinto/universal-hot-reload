@@ -7,7 +7,7 @@ import generateDefaultConfig from './generateDefaultConfig';
 /**
  * Watches server for changes, recompile and restart express
  */
-const watchServerChanges = serverConfig => {
+const watchServerChanges = (serverConfig) => {
   let initialLoad = true;
   let httpServerInitObject; // contains the httpServer itself and socket references
 
@@ -41,7 +41,7 @@ const watchServerChanges = serverConfig => {
   };
 
   // compile server side code
-  serverCompiler.watch(compilerOptions, err => {
+  serverCompiler.watch(compilerOptions, (err) => {
     if (err) {
       console.log(`Server bundling error: ${JSON.stringify(err)}`);
       return;
@@ -81,7 +81,7 @@ const watchServerChanges = serverConfig => {
   });
 };
 
-export const watchServerChangesWithDefaultConfig = serverEntryPath => {
+export const watchServerChangesWithDefaultConfig = (serverEntryPath) => {
   const defaultConfig = generateDefaultConfig(serverEntryPath);
   watchServerChanges(defaultConfig);
 };

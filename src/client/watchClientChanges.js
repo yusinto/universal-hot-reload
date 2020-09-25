@@ -18,22 +18,24 @@ const watchClientChanges = (clientConfig, callback) => {
     require.resolve('webpack/hot/dev-server'),
   ];
   if (entry.push) {
-    clientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
+    console.log(`entry push`);
+    clonedClientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
   } else {
-    clientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line
+    console.log(`entry no push`);
+    clonedClientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line
   }
 
   const hmrPlugin = new webpack.HotModuleReplacementPlugin();
   if (!plugins) {
-    clientConfig.plugins = [hmrPlugin]; // eslint-disable-line
+    clonedClientConfig.plugins = [hmrPlugin]; // eslint-disable-line
   } else {
     plugins.push(hmrPlugin);
   }
 
-  const compiler = webpack(clientConfig);
+  const compiler = webpack(clonedClientConfig);
   const devServerOptions = {
-    quiet: false, // don’t output anything to the console.
-    noInfo: false, // suppress boring information
+    quiet: true, // don’t output anything to the console.
+    noInfo: true, // suppress boring information
     lazy: false, // no watching, compiles on request
     publicPath,
     stats: 'errors-only',
