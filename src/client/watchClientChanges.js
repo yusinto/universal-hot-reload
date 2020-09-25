@@ -6,11 +6,13 @@ import webpackDevServer from 'webpack-dev-server';
  * Start webpack dev server for hmr
  */
 const watchClientChanges = (clientConfig, callback) => {
-  const { publicPath } = clientConfig.output;
+  const clonedClientConfig = { ...clientConfig };
+  const { entry, plugins, devServer = {} } = clonedClientConfig;
+
+  const { publicPath } = clonedClientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
 
-  const { entry, plugins } = clientConfig;
   const hmrEntries = [
     `${require.resolve('webpack-dev-server/client/')}?${webpackDevServerUrl}`,
     require.resolve('webpack/hot/dev-server'),
@@ -40,6 +42,7 @@ const watchClientChanges = (clientConfig, callback) => {
     },
     hot: true,
     sockPort: port,
+    ...devServer, // Add any overrides here
   };
 
   // When the compiler is done, trigger the callback function
