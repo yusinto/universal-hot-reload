@@ -44,6 +44,11 @@ describe('index.js', () => {
     beforeEach(() => {
       mockClientCompiler = {
         watch: jest.fn(),
+        hooks: {
+          done: {
+            tap: jest.fn(),
+          },
+        },
       };
       mockHmrPlugin = jest.fn();
       wdsMockInstance = {

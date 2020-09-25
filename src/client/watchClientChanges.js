@@ -5,7 +5,7 @@ import webpackDevServer from 'webpack-dev-server';
 /**
  * Start webpack dev server for hmr
  */
-const watchClientChanges = clientConfig => {
+const watchClientChanges = (clientConfig, callback) => {
   const { publicPath } = clientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
@@ -41,6 +41,11 @@ const watchClientChanges = clientConfig => {
     hot: true,
     sockPort: port,
   };
+
+  // When the compiler is done, trigger the callback function
+  compiler.hooks.done.tap('watchClientChanges', () => {
+    if (callback) callback();
+  });
 
   const server = new webpackDevServer(compiler, devServerOptions);
   server.listen(port, 'localhost', () => {
