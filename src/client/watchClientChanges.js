@@ -7,32 +7,12 @@ import webpackDevServer from 'webpack-dev-server';
  */
 const watchClientChanges = (clientConfig) => {
   const clonedClientConfig = { ...clientConfig };
-  const { entry, plugins, devServer = {} } = clonedClientConfig;
+  const { devServer = {} } = clonedClientConfig;
 
   const { publicPath } = clonedClientConfig.output;
   const { protocol, host, port } = url.parse(publicPath);
   const webpackDevServerUrl = `${protocol}//${host}`;
 
-  const hmrEntries = [
-    `${require.resolve('webpack-dev-server/client/')}?${webpackDevServerUrl}`,
-    require.resolve('webpack/hot/dev-server'),
-  ];
-  if (entry.push) {
-    console.log(`entry push`);
-    clonedClientConfig.entry = entry.concat(hmrEntries); // eslint-disable-line
-  } else {
-    console.log(`entry no push`);
-    clonedClientConfig.entry = [entry, ...hmrEntries]; // eslint-disable-line
-  }
-
-  const hmrPlugin = new webpack.HotModuleReplacementPlugin();
-  if (!plugins) {
-    clonedClientConfig.plugins = [hmrPlugin]; // eslint-disable-line
-  } else {
-    plugins.push(hmrPlugin);
-  }
-
-  const compiler = webpack(clonedClientConfig);
   const devServerOptions = {
     quiet: true, // don’t output anything to the console.
     noInfo: true, // suppress boring information
@@ -46,6 +26,9 @@ const watchClientChanges = (clientConfig) => {
     sockPort: port,
     ...devServer, // Add any overrides here
   };
+
+  webpackDevServer.addDevServerEntrypoints(clonedClientConfig, devServerOptions);
+  const compiler = webpack(clonedClientConfig);
 
   const server = new webpackDevServer(compiler, devServerOptions);
   server.listen(port, 'localhost', () => {

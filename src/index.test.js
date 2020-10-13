@@ -1,5 +1,10 @@
 jest.mock('webpack', () => jest.fn());
-jest.mock('webpack-dev-server', () => jest.fn());
+jest.mock('webpack-dev-server', () => {
+  const { addDevServerEntrypoints } = jest.requireActual('webpack-dev-server');
+  const mock = jest.fn();
+  mock.addDevServerEntrypoints = addDevServerEntrypoints;
+  return mock;
+});
 jest.mock('clear-require', () => jest.fn());
 jest.mock('./server/initHttpServer', () => jest.fn());
 
@@ -54,19 +59,21 @@ describe('index.js', () => {
       webpackDevServer.mockImplementation(() => wdsMockInstance);
     });
 
-    test('hmr entries and plugin are added to client config', () => {
+    test('single client entry gets injected with hmr entries and plugin', () => {
       watchClientChanges(clientConfig);
 
       const { entry, output, plugins } = webpack.mock.calls[0][0];
       expect(entry.length).toEqual(3);
-      expect(entry[0]).toEqual(clientConfig.entry);
-      expect(entry[1]).toEqual(expect.stringContaining('webpack-dev-server/client/index.js?http://localhost:8001'));
-      expect(entry[2]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(entry[2]).toEqual(clientConfig.entry);
+      expect(entry[1]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(entry[0]).toEqual(
+        expect.stringContaining('webpack-dev-server/client/index.js?http://localhost&sockPort=8001'),
+      );
       expect(output).toEqual(clientConfig.output);
       expect(plugins).toEqual([mockHmrPlugin]);
     });
 
-    test('hmr entries and plugin are appended to client config', () => {
+    test('multiple client entries as array get injected with hmr entries and plugin', () => {
       const clientConfigClone = {
         ...clientConfig,
         entry: ['./app1.js', './app2.js'],
@@ -77,10 +84,40 @@ describe('index.js', () => {
 
       const { entry, output, plugins } = webpack.mock.calls[0][0];
       expect(entry.length).toEqual(4);
-      expect(entry[0]).toEqual('./app1.js');
-      expect(entry[1]).toEqual('./app2.js');
-      expect(entry[2]).toEqual(expect.stringContaining('webpack-dev-server/client/index.js?http://localhost:8001'));
-      expect(entry[3]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(entry[2]).toEqual('./app1.js');
+      expect(entry[3]).toEqual('./app2.js');
+      expect(entry[0]).toEqual(
+        expect.stringContaining('webpack-dev-server/client/index.js?http://localhost&sockPort=8001'),
+      );
+      expect(entry[1]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(output).toEqual(clientConfig.output);
+      expect(plugins).toEqual(['some-other-plugin', mockHmrPlugin]);
+    });
+
+    test.only('multiple client entries as object get injected with hmr entries and plugin', () => {
+      const clientConfigClone = {
+        ...clientConfig,
+        entry: { app: './app.js', other: './other.js' },
+        plugins: ['some-other-plugin'],
+      };
+
+      watchClientChanges(clientConfigClone);
+
+      const { entry, output, plugins } = webpack.mock.calls[0][0];
+      expect(entry.app.length).toEqual(3);
+      expect(entry.app[2]).toEqual('./app.js');
+      expect(entry.app[1]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(entry.app[0]).toEqual(
+        expect.stringContaining('webpack-dev-server/client/index.js?http://localhost&sockPort=8001'),
+      );
+
+      expect(entry.other.length).toEqual(3);
+      expect(entry.other[2]).toEqual('./other.js');
+      expect(entry.other[1]).toEqual(expect.stringContaining('webpack/hot/dev-server.js'));
+      expect(entry.other[0]).toEqual(
+        expect.stringContaining('webpack-dev-server/client/index.js?http://localhost&sockPort=8001'),
+      );
+
       expect(output).toEqual(clientConfig.output);
       expect(plugins).toEqual(['some-other-plugin', mockHmrPlugin]);
     });
