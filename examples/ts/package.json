@@ -35,7 +35,7 @@
   "homepage": "https://github.com/launchdarkly/ld-nexus#readme",
   "dependencies": {
     "@nexus/schema": "^0.15.0",
-    "apollo-server": "^2.17.0",
+    "apollo-server": "^2.25.4",
     "graphql": "^15.3.0"
   },
   "devDependencies": {
