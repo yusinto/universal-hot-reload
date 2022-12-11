@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/yusinto/universal-hot-reload",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
